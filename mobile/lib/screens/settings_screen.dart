@@ -7,6 +7,7 @@ import '../theme/app_typography.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/secondary_button.dart';
 import '../widgets/section_header.dart';
+import '../widgets/clarity_brand_logo.dart';
 import 'welcome_auth_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -578,7 +579,84 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              // 6. Account Actions (Sign Out & Delete)
+              // 6. About Clarity
+              SectionHeader(title: 'About Clarity'),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: cardBg,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: border, width: 1.0),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        ClarityLogoMark(size: 32, isDark: isDark),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Clarity — Smoking Coach',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                  color: textPrim,
+                                ),
+                              ),
+                              const SizedBox(height: 2),
+                              Text(
+                                'Version 1.0.0 · Production',
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  color: textMut,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 14),
+                    Divider(color: border, height: 1),
+                    const SizedBox(height: 14),
+                    Text(
+                      'CREDITS & MANAGEMENT',
+                      style: AppTypography.labelUppercase.copyWith(
+                        color: textMut,
+                        fontSize: 10,
+                        letterSpacing: 1.1,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      'Product designed and managed by MOHAMMED SHAZAAN AARISH',
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: accent,
+                        height: 1.4,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      'An evidence-informed, privacy-first mobile companion engineered on cognitive behavioral cue-extinction principles and deterministic health economics.',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: textSec,
+                        height: 1.45,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // 7. Account Actions (Sign Out & Delete)
               SectionHeader(title: 'Account'),
               SecondaryButton(
                 label: 'Sign Out',
