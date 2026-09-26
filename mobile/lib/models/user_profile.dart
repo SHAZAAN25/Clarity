@@ -5,7 +5,9 @@ class UserProfile {
   final String id;
   final String email;
   final String name; // Authoritative name field (Section 4)
-  final int cigarettesPerDay; // Authoritative baseline CPD
+  final int questionnaireBaseline; // Section 13.1: Reported during onboarding (never overwritten)
+  final int? observedBaseline; // Section 13.1: Median of 7 valid completed days
+  final int cigarettesPerDay; // Effective baseline CPD
   final int targetCigarettesPerDay; // Authoritative active target CPD
   final int smokingDuration; // Years smoked
   final int ageStarted;
@@ -35,7 +37,9 @@ class UserProfile {
     required this.id,
     this.email = '',
     this.name = '',
-    this.cigarettesPerDay = 0,
+    int? questionnaireBaseline,
+    this.observedBaseline,
+    int cigarettesPerDay = 0,
     this.targetCigarettesPerDay = 0,
     this.smokingDuration = 0,
     this.ageStarted = 18,
@@ -60,13 +64,16 @@ class UserProfile {
     this.baselineHistory = const [],
     DateTime? createdAt,
     DateTime? updatedAt,
-  })  : createdAt = createdAt ?? DateTime.now(),
+  })  : questionnaireBaseline = questionnaireBaseline ?? (cigarettesPerDay > 0 ? cigarettesPerDay : 0),
+        cigarettesPerDay = observedBaseline ?? (cigarettesPerDay > 0 ? cigarettesPerDay : (questionnaireBaseline ?? 0)),
+        createdAt = createdAt ?? DateTime.now(),
         updatedAt = updatedAt ?? DateTime.now();
 
   // Backward-compatible accessors for legacy code
   String get displayName => name;
   int get baselineCpd => cigarettesPerDay;
   int get targetCpd => targetCigarettesPerDay;
+  int get effectiveBaseline => observedBaseline ?? questionnaireBaseline;
   int get yearsSmoked => smokingDuration;
   int get firstCigaretteAfterWakingMinutes => firstCigaretteTime;
   int get typicalIntervalMinutes => averageInterval;
@@ -82,6 +89,8 @@ class UserProfile {
     String? id,
     String? email,
     String? name,
+    int? questionnaireBaseline,
+    int? observedBaseline,
     int? cigarettesPerDay,
     int? targetCigarettesPerDay,
     int? smokingDuration,
@@ -122,6 +131,8 @@ class UserProfile {
       id: id ?? this.id,
       email: email ?? this.email,
       name: name ?? displayName ?? this.name,
+      questionnaireBaseline: questionnaireBaseline ?? this.questionnaireBaseline,
+      observedBaseline: observedBaseline ?? this.observedBaseline,
       cigarettesPerDay: cigarettesPerDay ?? baselineCpd ?? this.cigarettesPerDay,
       targetCigarettesPerDay: targetCigarettesPerDay ?? targetCpd ?? this.targetCigarettesPerDay,
       smokingDuration: smokingDuration ?? yearsSmoked ?? this.smokingDuration,
@@ -155,6 +166,8 @@ class UserProfile {
     'email': email,
     'name': name,
     'displayName': name,
+    'questionnaireBaseline': questionnaireBaseline,
+    'observedBaseline': observedBaseline,
     'cigarettesPerDay': cigarettesPerDay,
     'baselineCpd': cigarettesPerDay,
     'targetCigarettesPerDay': targetCigarettesPerDay,
@@ -193,6 +206,8 @@ class UserProfile {
 
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     final cpd = (json['cigarettesPerDay'] ?? json['baselineCpd']) as int? ?? 0;
+    final qBaseline = json['questionnaireBaseline'] as int? ?? cpd;
+    final oBaseline = json['observedBaseline'] as int?;
     final target = (json['targetCigarettesPerDay'] ?? json['targetCpd']) as int? ?? 0;
     final duration = (json['smokingDuration'] ?? json['yearsSmoked']) as int? ?? 0;
     final firstTime = (json['firstCigaretteTime'] ?? json['firstCigaretteAfterWakingMinutes']) as int? ?? 30;
@@ -215,6 +230,8 @@ class UserProfile {
       id: json['id'] as String? ?? 'usr_local',
       email: json['email'] as String? ?? '',
       name: rawName,
+      questionnaireBaseline: qBaseline,
+      observedBaseline: oBaseline,
       cigarettesPerDay: cpd,
       targetCigarettesPerDay: target,
       smokingDuration: duration,

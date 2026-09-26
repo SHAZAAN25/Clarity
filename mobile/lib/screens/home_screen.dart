@@ -126,7 +126,7 @@ class HomeScreen extends StatelessWidget {
                         child: Text(
                           isAboveTarget
                               ? 'Above Target'
-                              : (steadyStreak > 0 ? 'Steady · ${steadyStreak}d' : 'Steady'),
+                              : 'Steady · ${steadyStreak}d',
                           style: TextStyle(
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
@@ -409,6 +409,104 @@ class HomeScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
               ],
+
+              // 8. Day Completion Tracking (Section 25: Explicit Day Completion)
+              SectionHeader(
+                title: 'Day Tracking Status',
+                subtitle: 'Confirm completeness for target cycle evaluation',
+              ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: cardBg,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(
+                    color: appState.isTodayClosed
+                        ? accent.withValues(alpha: 0.4)
+                        : borderColor,
+                    width: 1.0,
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          appState.isTodayClosed
+                              ? Icons.check_circle_outline
+                              : Icons.schedule_outlined,
+                          size: 20,
+                          color: appState.isTodayClosed ? accent : textSec,
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            appState.isTodayClosed
+                                ? "Today's Tracking Completed"
+                                : "Finish Today's Tracking",
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w600,
+                              color: textPrim,
+                            ),
+                          ),
+                        ),
+                        if (appState.isTodayClosed)
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: accent.withValues(alpha: 0.15),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Text(
+                              'COMPLETE',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w700,
+                                color: accent,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      appState.isTodayClosed
+                          ? "You have marked today's logs as complete. This verified day counts toward your 7-day target evaluation cycle."
+                          : "Done smoking for the day? Confirming completion marks this as a valid observation day for your adaptive target engine.",
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: textSec,
+                        height: 1.45,
+                      ),
+                    ),
+                    if (!appState.isTodayClosed) ...[
+                      const SizedBox(height: 16),
+                      PrimaryButton(
+                        label: "I'm done logging for today",
+                        backgroundColor: accent,
+                        textColor: Colors.black,
+                        height: 44,
+                        onPressed: () async {
+                          await appState.finishTodayTracking();
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Today's tracking marked complete!"),
+                                duration: Duration(seconds: 2),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              const SizedBox(height: 32),
             ],
           ),
         ),

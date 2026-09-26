@@ -5,6 +5,7 @@ import 'package:clarity_mobile/models/strategy_mode.dart';
 import 'package:clarity_mobile/models/smoking_log.dart';
 import 'package:clarity_mobile/services/target_engine.dart';
 import 'package:clarity_mobile/services/tracking_coverage_service.dart';
+import 'package:clarity_mobile/models/daily_coverage.dart';
 
 void main() {
   group('Target Engine Test Cases (A through M - Section 54)', () {
@@ -304,6 +305,43 @@ void main() {
       final costFor5 = cigsSmoked * user.costPerCigarette;
       expect(costFor5, equals(50.0));
       expect(user.currency, equals('₹'));
+    });
+
+    test('Observed Baseline (Section 13.1): <7 days returns null, 7 days returns median', () {
+      final days6 = List.generate(6, (i) => DailyCoverage(
+        dateString: '2026-09-0${i + 1}',
+        actualCigarettes: 10 + i,
+        coverageStatus: CoverageStatus.valid,
+      ));
+      expect(TargetEngine.calculateObservedBaseline(days6), isNull);
+
+      // 7 days with counts: 8, 9, 10, 11, 12, 14, 15 -> median is 11
+      final days7 = [
+        DailyCoverage(dateString: '2026-09-01', actualCigarettes: 8, coverageStatus: CoverageStatus.valid),
+        DailyCoverage(dateString: '2026-09-02', actualCigarettes: 15, coverageStatus: CoverageStatus.valid),
+        DailyCoverage(dateString: '2026-09-03', actualCigarettes: 11, coverageStatus: CoverageStatus.valid),
+        DailyCoverage(dateString: '2026-09-04', actualCigarettes: 9, coverageStatus: CoverageStatus.valid),
+        DailyCoverage(dateString: '2026-09-05', actualCigarettes: 14, coverageStatus: CoverageStatus.valid),
+        DailyCoverage(dateString: '2026-09-06', actualCigarettes: 10, coverageStatus: CoverageStatus.valid),
+        DailyCoverage(dateString: '2026-09-07', actualCigarettes: 12, coverageStatus: CoverageStatus.valid),
+      ];
+      final observed = TargetEngine.calculateObservedBaseline(days7);
+      expect(observed, equals(11));
+    });
+
+    test('Confirmed zero-cigarette day (Section 29) evaluates as valid smoke-free day', () {
+      final coverage = TrackingCoverageService.evaluateDay(
+        date: DateTime(2026, 9, 10),
+        daySmokingLogs: [],
+        dayCravingLogs: [],
+        targetCpd: 9,
+        strategyMode: StrategyMode.reduce,
+        confirmedZero: true,
+      );
+      expect(coverage.coverageStatus, equals(CoverageStatus.valid));
+      expect(coverage.confirmedZero, isTrue);
+      expect(coverage.actualCigarettes, equals(0));
+      expect(coverage.isSteady, isTrue);
     });
   });
 }

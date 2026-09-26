@@ -46,39 +46,45 @@ class _ClarityLogoPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = size.width / 2;
+    final strokeW = size.width * 0.11;
 
-    // 1. Primary Outer Broken Loop: An arc breaking open at top-right (from 75 deg to 360 deg)
-    // Symbolizing the conscious interruption of an automatic circular loop
-    final loopPaint = Paint()
+    // 1. Lower-Left Arc: The habit loop gently releasing (curving from bottom up to middle-left)
+    final arcPaint = Paint()
       ..color = primaryColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = size.width * 0.08
+      ..strokeWidth = strokeW
       ..strokeCap = StrokeCap.round;
 
-    // Arc from 75 degrees around to 345 degrees (leaving a clean 90-degree opening at the top-right)
-    const startAngle = 0.55; // ~31 degrees
-    const sweepAngle = 2 * math.pi - 1.25; // Opens at top-right
-    final loopRect = Rect.fromCircle(center: center, radius: radius * 0.78);
-    canvas.drawArc(loopRect, startAngle, sweepAngle, false, loopPaint);
+    final arcPath = Path();
+    arcPath.addArc(
+      Rect.fromLTWH(strokeW, strokeW, size.width - 2 * strokeW, size.height - 2 * strokeW),
+      math.pi * 0.45, // starts at bottom
+      math.pi * 0.95, // sweeps smoothly around to mid-left
+    );
+    canvas.drawPath(arcPath, arcPaint);
 
-    // 2. Ascending Clarity Pathway: A calm diagonal vector leading out through the opening into clear space
-    final pathPaint = Paint()
+    // 2. Upper-Right Ascending Curve: Transformation & mindful clarity releasing into open space
+    final releasePaint = Paint()
       ..color = secondaryColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = size.width * 0.08
+      ..strokeWidth = strokeW
       ..strokeCap = StrokeCap.round;
 
-    final p1 = Offset(center.dx - radius * 0.28, center.dy + radius * 0.28);
-    final p2 = Offset(center.dx + radius * 0.52, center.dy - radius * 0.52);
-    canvas.drawLine(p1, p2, pathPaint);
+    final releasePath = Path();
+    // Smooth bezier curve separating upward and outward
+    releasePath.moveTo(size.width * 0.45, size.height * 0.52);
+    releasePath.cubicTo(
+      size.width * 0.52, size.height * 0.35,
+      size.width * 0.65, size.height * 0.20,
+      size.width * 0.88, size.height * 0.16,
+    );
+    canvas.drawPath(releasePath, releasePaint);
 
-    // 3. Center Mindful Focus Anchor: A small luminous pebble at the center
-    final corePaint = Paint()
-      ..color = isDark ? const Color(0xFFD8F3DC) : AppColors.sageDark
+    // 3. Subtle harmonic accent dot at the point of release (spacious clarity)
+    final dotPaint = Paint()
+      ..color = secondaryColor.withValues(alpha: isDark ? 0.9 : 0.8)
       ..style = PaintingStyle.fill;
-    canvas.drawCircle(center, radius * 0.16, corePaint);
+    canvas.drawCircle(Offset(size.width * 0.38, size.height * 0.28), strokeW * 0.5, dotPaint);
   }
 
   @override

@@ -226,7 +226,8 @@ class AppState extends ChangeNotifier {
     final sorted = List<SmokingLog>.from(_smokingLogs)
       ..sort((a, b) => b.timestamp.compareTo(a.timestamp));
     final diff = DateTime.now().difference(sorted.first.timestamp);
-    return math.max(0.05, diff.inMinutes / 60.0);
+    if (diff.isNegative) return 0.0;
+    return diff.inMinutes / 60.0;
   }
 
   String get currentSmokingInterval {
@@ -546,7 +547,58 @@ class AppState extends ChangeNotifier {
   }
 
   /// Updates or registers today's coverage state
+  bool get isTodayClosed {
+    final now = DateTime.now();
+    final dateStr =
+        '${now.year.toString().padLeft(4, '0')}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+    final match = _dailyCoverage.where((d) => d.dateString == dateStr);
+    if (match.isEmpty) return false;
+    return match.first.dayClosed;
+  }
+
+  DailyCoverage? get todayCoverage {
+    final now = DateTime.now();
+    final dateStr =
+        '${now.year.toString().padLeft(4, '0')}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+    final match = _dailyCoverage.where((d) => d.dateString == dateStr);
+    if (match.isEmpty) return null;
+    return match.first;
+  }
+
   void _updateTodayCoverage() {
+    final now = DateTime.now();
+    final dateStr =
+        '${now.year.toString().padLeft(4, '0')}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
+
+    final existingIdx = _dailyCoverage.indexWhere((d) => d.dateString == dateStr);
+    final wasClosed = existingIdx >= 0 ? _dailyCoverage[existingIdx].dayClosed : false;
+    final closedAt = existingIdx >= 0 ? _dailyCoverage[existingIdx].trackingCompletedAt : null;
+    final wasConfirmedZero = existingIdx >= 0 ? _dailyCoverage[existingIdx].confirmedZero : false;
+
+    final coverage = TrackingCoverageService.evaluateDay(
+      date: now,
+      daySmokingLogs: todaySmokingLogs,
+      dayCravingLogs: _cravingLogs.where((c) {
+        return c.timestamp.year == now.year &&
+            c.timestamp.month == now.month &&
+            c.timestamp.day == now.day;
+      }).toList(),
+      targetCpd: todayTargetCount,
+      strategyMode: _profile.strategyMode,
+      dayExplicitlyClosed: wasClosed,
+      trackingCompletedAt: closedAt,
+      confirmedZero: wasConfirmedZero,
+    );
+
+    if (existingIdx >= 0) {
+      _dailyCoverage[existingIdx] = coverage;
+    } else {
+      _dailyCoverage.add(coverage);
+    }
+  }
+
+  /// Section 25: Explicit Day Completion ("Finish today's tracking")
+  Future<void> finishTodayTracking({bool confirmedZero = false}) async {
     final now = DateTime.now();
     final dateStr =
         '${now.year.toString().padLeft(4, '0')}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
@@ -561,7 +613,9 @@ class AppState extends ChangeNotifier {
       }).toList(),
       targetCpd: todayTargetCount,
       strategyMode: _profile.strategyMode,
-      dayExplicitlyClosed: false,
+      dayExplicitlyClosed: true,
+      trackingCompletedAt: now,
+      confirmedZero: confirmedZero,
     );
 
     final idx = _dailyCoverage.indexWhere((d) => d.dateString == dateStr);
@@ -570,6 +624,10 @@ class AppState extends ChangeNotifier {
     } else {
       _dailyCoverage.add(coverage);
     }
+
+    _recalculateSteadyStreak();
+    await _persist();
+    notifyListeners();
   }
 
   /// Recalculates consecutive steady days across completed valid past days (Section 33)

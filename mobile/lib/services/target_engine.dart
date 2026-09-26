@@ -3,6 +3,7 @@ import '../models/user_profile.dart';
 import '../models/target_history_entry.dart';
 import '../models/target_cycle.dart';
 import '../models/strategy_mode.dart';
+import '../models/daily_coverage.dart';
 
 class TargetEngineResult {
   final int newTarget;
@@ -23,6 +24,17 @@ class TargetEngineResult {
 }
 
 class TargetEngine {
+  /// Section 13.1: Calculate observed baseline from latest 7 valid full days (median)
+  /// Returns null if fewer than 7 valid days are available.
+  static int? calculateObservedBaseline(List<DailyCoverage> validDays) {
+    if (validDays.length < 7) return null;
+    final sortedByDate = List<DailyCoverage>.from(validDays)
+      ..sort((a, b) => b.dateString.compareTo(a.dateString));
+    final counts = sortedByDate.take(7).map((d) => d.actualCigarettes).toList()..sort();
+    // Median of 7 elements is index 3 (middle value)
+    return counts[3];
+  }
+
   /// Section 17: Initial Reduction Target
   /// initialTarget = ceil(effectiveBaseline * 0.90)
   /// Constraints: 1 <= initialTarget <= effectiveBaseline

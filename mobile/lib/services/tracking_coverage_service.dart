@@ -17,6 +17,8 @@ class TrackingCoverageService {
     required int targetCpd,
     required StrategyMode strategyMode,
     bool dayExplicitlyClosed = false,
+    DateTime? trackingCompletedAt,
+    bool confirmedZero = false,
     DateTime? firstSessionAt,
     DateTime? lastSessionAt,
     int sessionCount = 0,
@@ -46,11 +48,14 @@ class TrackingCoverageService {
 
     CoverageStatus status;
 
-    if (allTimestamps.isEmpty && sessionCount == 0 && !dayExplicitlyClosed) {
+    if (confirmedZero) {
+      // Section 29: Explicitly confirmed zero-cigarette day
+      status = CoverageStatus.valid;
+    } else if (allTimestamps.isEmpty && sessionCount == 0 && !dayExplicitlyClosed) {
       // Untracked day
       status = CoverageStatus.unknown;
     } else if (dayExplicitlyClosed) {
-      // User explicitly closed/reviewed day
+      // User explicitly closed/completed day
       status = CoverageStatus.valid;
     } else if (isFirstDayOfAccount && firstTracked != null && firstTracked.hour >= 18) {
       // Section 22: New user starts at 8 PM -> PARTIAL day
@@ -82,9 +87,11 @@ class TrackingCoverageService {
       dayStartedAt: firstSessionAt,
       firstTrackedAt: firstTracked,
       lastTrackedAt: lastTracked,
+      trackingCompletedAt: trackingCompletedAt,
       trackingSessionCount: sessionCount > 0 ? sessionCount : (totalEvents > 0 ? 1 : 0),
       eventCount: totalEvents,
       dayClosed: dayExplicitlyClosed,
+      confirmedZero: confirmedZero,
       coverageStatus: status,
       actualCigarettes: actualCigarettes,
       targetCigarettes: targetCpd,

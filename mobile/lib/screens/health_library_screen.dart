@@ -194,7 +194,9 @@ class HealthLibraryScreen extends StatelessWidget {
                       textBaseline: TextBaseline.alphabetic,
                       children: [
                         Text(
-                          hours.toStringAsFixed(1),
+                          appState.smokingLogs.isEmpty
+                              ? '—'
+                              : (hours < 1.0 ? '${(hours * 60).round()}' : hours.toStringAsFixed(1)),
                           style: AppTypography.displayLarge.copyWith(
                             color: textPrim,
                             fontSize: 44,
@@ -203,7 +205,9 @@ class HealthLibraryScreen extends StatelessWidget {
                         ),
                         const SizedBox(width: 6),
                         Text(
-                          'hours',
+                          appState.smokingLogs.isEmpty
+                              ? 'no logs recorded'
+                              : (hours < 1.0 ? 'minutes' : 'hours'),
                           style: TextStyle(fontSize: 16, color: textSec),
                         ),
                       ],
@@ -224,7 +228,7 @@ class HealthLibraryScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              '\$${moneySaved.toStringAsFixed(0)}',
+                              '₹${moneySaved.toStringAsFixed(0)}',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
@@ -245,7 +249,7 @@ class HealthLibraryScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 2),
                             Text(
-                              '24 Hours',
+                              hours < 8 ? '8 Hours' : (hours < 24 ? '24 Hours' : (hours < 48 ? '48 Hours' : '72 Hours')),
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
@@ -264,7 +268,7 @@ class HealthLibraryScreen extends StatelessWidget {
               // Recovery Timeline Milestones
               SectionHeader(
                 title: 'Physiological Milestones',
-                subtitle: 'Evidence-based recovery timeline',
+                subtitle: 'Evidence-based recovery timeline (WHO / CDC / AHA)',
               ),
               ...milestones.map((m) {
                 final isReached = m.isUnlocked;

@@ -411,16 +411,15 @@ class _CravingInterventionScreenState extends State<CravingInterventionScreen>
         ),
         const SizedBox(height: 24),
 
-        // Intervention Switcher Pills
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        // Intervention Switcher Pills: Responsive Wrap to prevent any RenderFlex overflow
+        Wrap(
+          alignment: WrapAlignment.center,
+          spacing: 8,
+          runSpacing: 8,
           children: [
             _buildInterventionPill('delay', 'Delay', Icons.timer_outlined, accent, border, textPrim),
-            const SizedBox(width: 8),
             _buildInterventionPill('breathing', 'Breathe', Icons.air, accent, border, textPrim),
-            const SizedBox(width: 8),
             _buildInterventionPill('water', 'Water', Icons.water_drop_outlined, accent, border, textPrim),
-            const SizedBox(width: 8),
             _buildInterventionPill('walk', 'Walk', Icons.directions_walk, accent, border, textPrim),
           ],
         ),
@@ -437,29 +436,53 @@ class _CravingInterventionScreenState extends State<CravingInterventionScreen>
           ),
           child: _buildInterventionCardContent(textPrim, textSec, textMut, accent, isDark),
         ),
-        const SizedBox(height: 28),
+        const SizedBox(height: 24),
 
-        // Actions: Pause / End early
-        Row(
-          children: [
-            Expanded(
-              child: SecondaryButton(
-                label: 'End delay early',
-                onPressed: _endTimerEarly,
-                height: 46,
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: PrimaryButton(
-                label: 'Craving passed',
-                backgroundColor: accent,
-                textColor: Colors.black,
-                onPressed: () => _submitOutcome('craving_passed'),
-                height: 46,
-              ),
-            ),
-          ],
+        // Actions: Pause / End early (responsive layout to prevent overflow on small screens)
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final isNarrow = constraints.maxWidth < 320;
+            if (isNarrow) {
+              return Column(
+                children: [
+                  PrimaryButton(
+                    label: 'Craving passed',
+                    backgroundColor: accent,
+                    textColor: Colors.black,
+                    onPressed: () => _submitOutcome('craving_passed'),
+                    height: 48,
+                  ),
+                  const SizedBox(height: 10),
+                  SecondaryButton(
+                    label: 'End delay early',
+                    onPressed: _endTimerEarly,
+                    height: 48,
+                  ),
+                ],
+              );
+            }
+            return Row(
+              children: [
+                Expanded(
+                  child: SecondaryButton(
+                    label: 'End delay early',
+                    onPressed: _endTimerEarly,
+                    height: 48,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: PrimaryButton(
+                    label: 'Craving passed',
+                    backgroundColor: accent,
+                    textColor: Colors.black,
+                    onPressed: () => _submitOutcome('craving_passed'),
+                    height: 48,
+                  ),
+                ),
+              ],
+            );
+          },
         ),
         const SizedBox(height: 16),
       ],
