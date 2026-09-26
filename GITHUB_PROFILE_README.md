@@ -85,11 +85,11 @@
 ### 📊 GitHub Activity & Statistics
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=SHAZAAN25&show_icons=true&theme=tokyonight&hide_border=true&bg_color=121916&title_color=52B788&icon_color=D8F3DC&text_color=E0E8E3" alt="GitHub Stats" />
+  <img src="https://github-stats-alpha.vercel.app/api?username=SHAZAAN25&show_icons=true&theme=tokyonight&hide_border=true&bg_color=121916&title_color=52B788&icon_color=D8F3DC&text_color=E0E8E3" alt="GitHub Stats" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=SHAZAAN25&theme=tokyonight&hide_border=true&background=121916&ring=52B788&fire=52B788&currStreakLabel=52B788" alt="GitHub Streak" />
+  <img src="https://streak-stats.demolab.com/?user=SHAZAAN25&theme=tokyonight&hide_border=true&background=121916&ring=52B788&fire=52B788&currStreakLabel=52B788" alt="GitHub Streak" />
 </p>
 
 ---
