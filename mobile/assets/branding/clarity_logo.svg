@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 80" width="280" height="80" fill="none">
+  <!-- Mark -->
+  <g transform="translate(10, 10)">
+    <path d="M 42 16 A 24 24 0 1 0 48 30" stroke="#52B788" stroke-width="5" stroke-linecap="round" />
+    <line x1="22" y1="38" x2="48" y2="12" stroke="#2D6A4F" stroke-width="5" stroke-linecap="round" />
+    <circle cx="30" cy="30" r="4.5" fill="#52B788" />
+  </g>
+  <!-- Wordmark -->
+  <text x="82" y="44" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="700" letter-spacing="5" fill="#FFFFFF">CLARITY</text>
+  <text x="82" y="60" font-family="system-ui, -apple-system, sans-serif" font-size="9.5" font-weight="400" letter-spacing="1.5" fill="#8FA89B">SMOKING COACH</text>
+</svg>
