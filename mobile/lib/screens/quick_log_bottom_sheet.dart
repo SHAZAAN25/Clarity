@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../providers/app_state.dart';
@@ -57,6 +58,7 @@ class _QuickLogBottomSheetState extends State<QuickLogBottomSheet> {
   }
 
   void _saveLog() async {
+    HapticFeedback.mediumImpact();
     final appState = Provider.of<AppState>(context, listen: false);
     await appState.logCigarette(
       trigger: _selectedTrigger,
@@ -162,7 +164,10 @@ class _QuickLogBottomSheetState extends State<QuickLogBottomSheet> {
                 return TriggerChip(
                   label: t,
                   isSelected: isSelected,
-                  onSelected: (_) => setState(() => _selectedTrigger = t),
+                  onSelected: (_) {
+                    HapticFeedback.selectionClick();
+                    setState(() => _selectedTrigger = t);
+                  },
                 );
               }).toList(),
             ),
@@ -186,7 +191,10 @@ class _QuickLogBottomSheetState extends State<QuickLogBottomSheet> {
                 return TriggerChip(
                   label: s,
                   isSelected: isSelected,
-                  onSelected: (_) => setState(() => _selectedSituation = s),
+                  onSelected: (_) {
+                    HapticFeedback.selectionClick();
+                    setState(() => _selectedSituation = s);
+                  },
                 );
               }).toList(),
             ),
@@ -212,7 +220,13 @@ class _QuickLogBottomSheetState extends State<QuickLogBottomSheet> {
               max: 10.0,
               divisions: 9,
               activeColor: accent,
-              onChanged: (val) => setState(() => _cravingIntensity = val.round()),
+              onChanged: (val) {
+                final rounded = val.round();
+                if (rounded != _cravingIntensity) {
+                  HapticFeedback.selectionClick();
+                }
+                setState(() => _cravingIntensity = rounded);
+              },
             ),
             const SizedBox(height: 10),
 
@@ -226,7 +240,10 @@ class _QuickLogBottomSheetState extends State<QuickLogBottomSheet> {
               ),
               value: _delayedFirst,
               activeColor: AppColors.sagePrimary,
-              onChanged: (val) => setState(() => _delayedFirst = val ?? false),
+              onChanged: (val) {
+                HapticFeedback.selectionClick();
+                setState(() => _delayedFirst = val ?? false);
+              },
             ),
             const SizedBox(height: 10),
 

@@ -39,75 +39,160 @@ def point_to_segment_dist(px, py, x1, y1, x2, y2):
     proj_y = y1 + t * dy
     return math.hypot(px - proj_x, py - proj_y)
 
-def render_clarity_icon(size, transparent_bg=False):
+def point_to_bezier_dist(px, py, p0, p1, p2, p3, steps=32):
+    # Sample points along cubic bezier to compute min distance
+    min_dist = float('inf')
+    for i in range(steps + 1):
+        t = i / float(steps)
+        inv = 1.0 - t
+        bx = inv**3 * p0[0] + 3 * inv**2 * t * p1[0] + 3 * inv * t**2 * p2[0] + t**3 * p3[0]
+        by = inv**3 * p0[1] + 3 * inv**2 * t * p1[1] + 3 * inv * t**2 * p2[1] + t**3 * p3[1]
+        dist = math.hypot(px - bx, py - by)
+        if dist < min_dist:
+            min_dist = dist
+    return min_dist
+
+def sample_icon_at(x, y, size, transparent_bg):
+    cx, cy = size / 2.0, size / 2.0
+    dx = x - cx
+    dy = y - cy
+    dist = math.hypot(dx, dy)
+    angle = math.atan2(dy, dx) # in [-pi, pi]
+
+    # Logo scale parameters
+    r_loop = size * 0.25
+    stroke_w = size * 0.052
+
+    # Bezier curve for ascending breakthrough release
+    # Releasing upward-right into open clarity
+    p0 = (cx - size * 0.03, cy + size * 0.03)
+    p1 = (cx + size * 0.05, cy - size * 0.12)
+    p2 = (cx + size * 0.15, cy - size * 0.22)
+    p3 = (cx + size * 0.27, cy - size * 0.25)
+
+    # Accent dot position
+    dot_x = cx - size * 0.09
+    dot_y = cy - size * 0.14
+    dot_r = stroke_w * 0.58
+
+    if transparent_bg:
+        r_bg, g_bg, b_bg, a_bg = 0, 0, 0, 0
+    else:
+        # Deep obsidian sage background (#121916 to #151A19)
+        norm_d = min(1.0, dist / (size * 0.7))
+        r_bg = int(18 + 3 * (1.0 - norm_d))
+        g_bg = int(24 + 4 * (1.0 - norm_d))
+        b_bg = int(22 + 3 * (1.0 - norm_d))
+        a_bg = 255
+
+    r, g, b, a = r_bg, g_bg, b_bg, a_bg
+
+    # 1. Arc: sweeping from bottom (approx 0.45*pi) clockwise to upper left (-0.75*pi)
+    # The gap/break is in the upper right (-0.75*pi to 0.45*pi is preserved, gap is -0.75*pi to 0.45*pi? Wait)
+    # Angle: atan2(dy, dx): bottom is +pi/2 (1.57), left is +pi/-pi, top is -pi/2 (-1.57), right is 0.
+    # In Flutter: math.pi * 0.45 to math.pi * 1.40.
+    # Flutter 0 is right (0 deg), 0.5*pi is bottom, pi is left, 1.5*pi is top (-0.5*pi in atan2).
+    # Flutter sweep: 0.45*pi (bottom) to 1.40*pi (top-left).
+    # In atan2: 0.45*pi (~1.41) up to pi (~3.14) and -pi down to -0.60*pi (~ -1.88).
+    # That is: (angle >= 1.40) or (angle <= -1.88)
+    in_arc_angle = (angle >= 1.35) or (angle <= -1.85)
+
+    loop_dist = abs(dist - r_loop)
+    if in_arc_angle:
+        if loop_dist < stroke_w:
+            alpha = max(0.0, min(1.0, 1.0 - (loop_dist / stroke_w)))
+            # Primary Sage light #D8F3DC (216, 243, 220)
+            r = int(r * (1 - alpha) + 216 * alpha)
+            g = int(g * (1 - alpha) + 243 * alpha)
+            b = int(b * (1 - alpha) + 220 * alpha)
+            a = max(a, int(255 * alpha))
+    else:
+        # Rounded caps for arc ends
+        end1_x = cx + r_loop * math.cos(1.35)
+        end1_y = cy + r_loop * math.sin(1.35)
+        d1 = math.hypot(x - end1_x, y - end1_y)
+        if d1 < stroke_w:
+            alpha = max(0.0, min(1.0, 1.0 - (d1 / stroke_w)))
+            r = int(r * (1 - alpha) + 216 * alpha)
+            g = int(g * (1 - alpha) + 243 * alpha)
+            b = int(b * (1 - alpha) + 220 * alpha)
+            a = max(a, int(255 * alpha))
+
+        end2_x = cx + r_loop * math.cos(-1.85)
+        end2_y = cy + r_loop * math.sin(-1.85)
+        d2 = math.hypot(x - end2_x, y - end2_y)
+        if d2 < stroke_w:
+            alpha = max(0.0, min(1.0, 1.0 - (d2 / stroke_w)))
+            r = int(r * (1 - alpha) + 216 * alpha)
+            g = int(g * (1 - alpha) + 243 * alpha)
+            b = int(b * (1 - alpha) + 220 * alpha)
+            a = max(a, int(255 * alpha))
+
+    # 2. Ascending breakthrough curve (Sage emerald #52B788)
+    bez_dist = point_to_bezier_dist(x, y, p0, p1, p2, p3)
+    if bez_dist < stroke_w:
+        alpha = max(0.0, min(1.0, 1.0 - (bez_dist / stroke_w)))
+        # Emerald primary #52B788 (82, 183, 136)
+        r = int(r * (1 - alpha) + 82 * alpha)
+        g = int(g * (1 - alpha) + 183 * alpha)
+        b = int(b * (1 - alpha) + 136 * alpha)
+        a = max(a, int(255 * alpha))
+
+    # 3. Harmonic accent dot
+    dot_dist = math.hypot(x - dot_x, y - dot_y)
+    if dot_dist < dot_r:
+        alpha = max(0.0, min(1.0, (dot_r - dot_dist) / 1.5))
+        r = int(r * (1 - alpha) + 82 * alpha)
+        g = int(g * (1 - alpha) + 183 * alpha)
+        b = int(b * (1 - alpha) + 136 * alpha)
+        a = max(a, int(255 * alpha))
+
+    return r, g, b, a
+
+def render_clarity_icon(size, transparent_bg=False, round_mask=False):
     pixels = bytearray(size * size * 4)
     cx, cy = size / 2.0, size / 2.0
+    r_mask = size * 0.48
 
-    # Geometry coordinates
-    r_loop = size * 0.36
-    w_loop = size * 0.075
-
-    lx1 = cx - size * 0.20
-    ly1 = cy + size * 0.20
-    lx2 = cx + size * 0.32
-    ly2 = cy - size * 0.32
-    w_line = size * 0.07
-
-    r_center = size * 0.11
+    # 2x2 subpixel antialiasing
+    sub_offsets = [(-0.25, -0.25), (0.25, -0.25), (-0.25, 0.25), (0.25, 0.25)]
 
     for y in range(size):
         for x in range(size):
             idx = (y * size + x) * 4
-            dx = x - cx
-            dy = y - cy
-            dist = math.hypot(dx, dy)
-            # angle in [-pi, pi]
-            angle = math.atan2(dy, dx)
 
-            if transparent_bg:
-                r, g, b, a = 0, 0, 0, 0
-            else:
-                # Deep calm charcoal/sage #121916 to #1B2622
-                norm_d = min(1.0, dist / (size * 0.65))
-                r = int(18 + 7 * (1.0 - norm_d))
-                g = int(25 + 11 * (1.0 - norm_d))
-                b = int(22 + 9 * (1.0 - norm_d))
-                a = 255
+            if round_mask:
+                dist_c = math.hypot(x - cx, y - cy)
+                if dist_c > r_mask + 0.5:
+                    pixels[idx] = 0
+                    pixels[idx + 1] = 0
+                    pixels[idx + 2] = 0
+                    pixels[idx + 3] = 0
+                    continue
 
-            # 1. Broken loop: angle open in upper right (~ -0.9 to 0.1 radians)
-            # We open from -pi/4 - 0.45 to -pi/4 + 0.45
-            is_open_angle = (-1.25 < angle < -0.15)
-            loop_dist = abs(dist - r_loop)
-            if loop_dist < w_loop and not is_open_angle:
-                alpha = max(0.0, min(1.0, 1.0 - (loop_dist / w_loop)))
-                # Sage primary #52B788 (82, 183, 136)
-                r = int(r * (1 - alpha) + 82 * alpha)
-                g = int(g * (1 - alpha) + 183 * alpha)
-                b = int(b * (1 - alpha) + 136 * alpha)
-                a = max(a, int(255 * alpha))
+            acc_r, acc_g, acc_b, acc_a = 0, 0, 0, 0
+            for ox, oy in sub_offsets:
+                sr, sg, sb, sa = sample_icon_at(x + ox, y + oy, size, transparent_bg)
+                acc_r += sr
+                acc_g += sg
+                acc_b += sb
+                acc_a += sa
 
-            # 2. Diagonal ascending breakthrough vector: from bottom-left to top-right through the break
-            line_dist = point_to_segment_dist(x, y, lx1, ly1, lx2, ly2)
-            if line_dist < w_line:
-                alpha_line = max(0.0, min(1.0, 1.0 - (line_dist / w_line)))
-                # Deep forest emerald #2D6A4F (45, 106, 79)
-                r = int(r * (1 - alpha_line) + 45 * alpha_line)
-                g = int(g * (1 - alpha_line) + 106 * alpha_line)
-                b = int(b * (1 - alpha_line) + 79 * alpha_line)
-                a = max(a, int(255 * alpha_line))
+            fr = acc_r // 4
+            fg = acc_g // 4
+            fb = acc_b // 4
+            fa = acc_a // 4
 
-            # 3. Center calm focal dot: #D8F3DC (216, 243, 220)
-            if dist < r_center:
-                alpha_dot = max(0.0, min(1.0, (r_center - dist) / 1.5))
-                r = int(r * (1 - alpha_dot) + 216 * alpha_dot)
-                g = int(g * (1 - alpha_dot) + 243 * alpha_dot)
-                b = int(b * (1 - alpha_dot) + 220 * alpha_dot)
-                a = max(a, int(255 * alpha_dot))
+            if round_mask:
+                dist_c = math.hypot(x - cx, y - cy)
+                if dist_c > r_mask - 0.5:
+                    edge_alpha = max(0.0, min(1.0, r_mask + 0.5 - dist_c))
+                    fa = int(fa * edge_alpha)
 
-            pixels[idx] = r
-            pixels[idx + 1] = g
-            pixels[idx + 2] = b
-            pixels[idx + 3] = a
+            pixels[idx] = fr
+            pixels[idx + 1] = fg
+            pixels[idx + 2] = fb
+            pixels[idx + 3] = fa
 
     return bytes(pixels)
 
@@ -116,26 +201,42 @@ def main():
     project_root = os.path.dirname(root)
     base_res = os.path.join(project_root, "android", "app", "src", "main", "res")
 
-    sizes = {
-        os.path.join(base_res, "mipmap-mdpi", "ic_launcher.png"): 48,
-        os.path.join(base_res, "mipmap-hdpi", "ic_launcher.png"): 72,
-        os.path.join(base_res, "mipmap-xhdpi", "ic_launcher.png"): 96,
-        os.path.join(base_res, "mipmap-xxhdpi", "ic_launcher.png"): 144,
-        os.path.join(base_res, "mipmap-xxxhdpi", "ic_launcher.png"): 192,
-        os.path.join(root, "app_icon", "app_icon_512.png"): 512,
-        os.path.join(root, "app_icon", "app_icon_192.png"): 192,
-        os.path.join(root, "app_icon", "app_icon_96.png"): 96,
-        os.path.join(root, "app_icon", "app_icon_48.png"): 48,
+    densities = {
+        "mipmap-mdpi": (48, 108),
+        "mipmap-hdpi": (72, 162),
+        "mipmap-xhdpi": (96, 216),
+        "mipmap-xxhdpi": (144, 324),
+        "mipmap-xxxhdpi": (192, 432),
     }
 
-    for path, sz in sizes.items():
-        data = render_clarity_icon(sz, transparent_bg=False)
-        write_png(path, sz, sz, data)
+    # 1. Generate standard square/squircle icons and round icons for each density
+    for folder, (icon_sz, fg_sz) in densities.items():
+        dir_path = os.path.join(base_res, folder)
+        os.makedirs(dir_path, exist_ok=True)
 
-    # Adaptive foreground
-    fg_data = render_clarity_icon(432, transparent_bg=True)
-    write_png(os.path.join(base_res, "mipmap-xxxhdpi", "ic_launcher_foreground.png"), 432, 432, fg_data)
-    write_png(os.path.join(root, "app_icon", "app_icon_foreground.png"), 432, 432, fg_data)
+        # Standard icon
+        std_data = render_clarity_icon(icon_sz, transparent_bg=False, round_mask=False)
+        write_png(os.path.join(dir_path, "ic_launcher.png"), icon_sz, icon_sz, std_data)
+
+        # Round icon (for launchers that query roundIcon)
+        rnd_data = render_clarity_icon(icon_sz, transparent_bg=False, round_mask=True)
+        write_png(os.path.join(dir_path, "ic_launcher_round.png"), icon_sz, icon_sz, rnd_data)
+
+        # Adaptive icon foreground
+        fg_data = render_clarity_icon(fg_sz, transparent_bg=True, round_mask=False)
+        write_png(os.path.join(dir_path, "ic_launcher_foreground.png"), fg_sz, fg_sz, fg_data)
+
+    # 2. Store / asset icons
+    store_sizes = [48, 96, 192, 512]
+    app_icon_dir = os.path.join(root, "app_icon")
+    os.makedirs(app_icon_dir, exist_ok=True)
+    for sz in store_sizes:
+        data = render_clarity_icon(sz, transparent_bg=False, round_mask=False)
+        write_png(os.path.join(app_icon_dir, f"app_icon_{sz}.png"), sz, sz, data)
+
+    # Adaptive foreground asset for reference
+    fg_512 = render_clarity_icon(512, transparent_bg=True, round_mask=False)
+    write_png(os.path.join(app_icon_dir, "app_icon_foreground.png"), 512, 512, fg_512)
 
     print("All launcher and store icons generated successfully.")
 

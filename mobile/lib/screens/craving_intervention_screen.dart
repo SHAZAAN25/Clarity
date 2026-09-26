@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../providers/app_state.dart';
 import '../theme/app_colors.dart';
@@ -98,6 +99,7 @@ class _CravingInterventionScreenState extends State<CravingInterventionScreen>
         setState(() => _remainingSeconds--);
       } else {
         _timer?.cancel();
+        HapticFeedback.mediumImpact();
         setState(() {
           _step = CravingStep.outcome;
         });
@@ -107,12 +109,14 @@ class _CravingInterventionScreenState extends State<CravingInterventionScreen>
 
   void _endTimerEarly() {
     _timer?.cancel();
+    HapticFeedback.lightImpact();
     setState(() {
       _step = CravingStep.outcome;
     });
   }
 
   void _submitOutcome(String outcomeKey) async {
+    HapticFeedback.mediumImpact();
     final appState = Provider.of<AppState>(context, listen: false);
     final elapsedMinutes = ((_delayMinutes * 60 - _remainingSeconds) / 60).round();
 
@@ -281,7 +285,13 @@ class _CravingInterventionScreenState extends State<CravingInterventionScreen>
           max: 10.0,
           divisions: 9,
           activeColor: _intensity > 7 ? AppColors.amber : accent,
-          onChanged: (val) => setState(() => _intensity = val.round()),
+          onChanged: (val) {
+            final rounded = val.round();
+            if (rounded != _intensity) {
+              HapticFeedback.selectionClick();
+            }
+            setState(() => _intensity = rounded);
+          },
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -298,7 +308,10 @@ class _CravingInterventionScreenState extends State<CravingInterventionScreen>
 
         PrimaryButton(
           label: 'Next',
-          onPressed: () => setState(() => _step = CravingStep.trigger),
+          onPressed: () {
+            HapticFeedback.lightImpact();
+            setState(() => _step = CravingStep.trigger);
+          },
           height: 50,
         ),
       ],
@@ -339,7 +352,10 @@ class _CravingInterventionScreenState extends State<CravingInterventionScreen>
             return TriggerChip(
               label: t,
               isSelected: isSelected,
-              onSelected: (_) => setState(() => _selectedTrigger = t),
+              onSelected: (_) {
+                HapticFeedback.selectionClick();
+                setState(() => _selectedTrigger = t);
+              },
             );
           }).toList(),
         ),
@@ -348,6 +364,7 @@ class _CravingInterventionScreenState extends State<CravingInterventionScreen>
         PrimaryButton(
           label: 'Begin Intervention',
           onPressed: () {
+            HapticFeedback.lightImpact();
             _startTimer();
             setState(() => _step = CravingStep.intervention);
           },
@@ -499,7 +516,10 @@ class _CravingInterventionScreenState extends State<CravingInterventionScreen>
   ) {
     final isSelected = _selectedInterventionType == type;
     return GestureDetector(
-      onTap: () => setState(() => _selectedInterventionType = type),
+      onTap: () {
+        HapticFeedback.selectionClick();
+        setState(() => _selectedInterventionType = type);
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(

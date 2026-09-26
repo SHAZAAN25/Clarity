@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../providers/app_state.dart';
@@ -263,7 +264,10 @@ class HomeScreen extends StatelessWidget {
                       icon: Icons.add,
                       backgroundColor: isDark ? AppColors.darkSurfaceElevated : AppColors.lightSurfaceElevated,
                       textColor: textPrim,
-                      onPressed: () => QuickLogBottomSheet.show(context),
+                      onPressed: () {
+                        HapticFeedback.lightImpact();
+                        QuickLogBottomSheet.show(context);
+                      },
                       height: 50,
                     ),
                   ),
@@ -274,7 +278,10 @@ class HomeScreen extends StatelessWidget {
                       icon: Icons.hourglass_top_outlined,
                       backgroundColor: AppColors.sagePrimary,
                       textColor: Colors.black,
-                      onPressed: () => CravingInterventionScreen.open(context),
+                      onPressed: () {
+                        HapticFeedback.lightImpact();
+                        CravingInterventionScreen.open(context);
+                      },
                       height: 50,
                     ),
                   ),
@@ -491,6 +498,7 @@ class HomeScreen extends StatelessWidget {
                         textColor: Colors.black,
                         height: 44,
                         onPressed: () async {
+                          HapticFeedback.mediumImpact();
                           await appState.finishTodayTracking();
                           if (context.mounted) {
                             ScaffoldMessenger.of(context).showSnackBar(
