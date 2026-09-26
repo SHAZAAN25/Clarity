@@ -1,7 +1,7 @@
 # Hi there, I'm Mohammed Shazaan Aarish 👋
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=52B788&center=true&vCenter=true&width=600&lines=Product+Architect+%26+Mobile+Engineer;Flutter+%26+Android+Native+Specialist;Crafting+Empathetic%2C+Behavioral+Tech;Designing+High-Impact+Digital+Products" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=52B788&center=true&vCenter=true&width=620&lines=Product+Architect+%26+Mobile+Engineer;Flutter+%26+Android+Native+Specialist;Architecting+Empathetic%2C+Behavioral+Tech;Building+Production-Ready+AI+Systems" alt="Typing SVG" />
 </p>
 
 <p align="center">
@@ -10,23 +10,37 @@
 
 ---
 
-### 🌟 Featured Project
+### 🌟 Featured Projects
 
 <div align="center">
   <table>
     <tr>
-      <td width="100%">
+      <td width="50%" valign="top">
         <h3 align="center">🌿 Clarity — Smoking Coach</h3>
         <p align="center">
           <em>A quiet, privacy-first behavioral reduction companion engineered on cognitive-behavioral cue extinction and deterministic health economics.</em>
         </p>
         <p align="center">
-          <a href="https://github.com/SHAZAAN25/Clarity"><img src="https://img.shields.io/badge/View_Repository-Clarity-2D6A4F?style=for-the-badge&logo=github&logoColor=white" alt="View Clarity" /></a>
+          <a href="https://github.com/SHAZAAN25/Clarity"><img src="https://img.shields.io/badge/View_Project-Clarity-2D6A4F?style=for-the-badge&logo=github&logoColor=white" alt="View Clarity" /></a>
         </p>
         <ul>
-          <li><b>Native Mobile Touch Experience:</b> Built with Flutter 3.x with zero-overflow responsive layouts, custom interrupted habit loop branding, and native tactile haptics.</li>
+          <li><b>Native Mobile Touch Experience:</b> Flutter 3.x native Android app with zero-overflow responsive layouts, custom interrupted habit loop branding, and native tactile haptics.</li>
           <li><b>Deterministic Target Engine:</b> 7-day algorithmic evaluation cycles, 10% reductions, minimum floor of 1 cigarette/day, and stabilization safety modes.</li>
           <li><b>Local-First Privacy:</b> Zero telemetry, 100% on-device encrypted storage, and offline-capable architecture.</li>
+        </ul>
+      </td>
+      <td width="50%" valign="top">
+        <h3 align="center">⚡ Aura</h3>
+        <p align="center">
+          <em>Advanced LLM orchestration and high-performance Retrieval-Augmented Generation (RAG) pipeline architecture.</em>
+        </p>
+        <p align="center">
+          <a href="https://github.com/SHAZAAN25/Aura"><img src="https://img.shields.io/badge/View_Project-Aura-1E3A8A?style=for-the-badge&logo=github&logoColor=white" alt="View Aura" /></a>
+        </p>
+        <ul>
+          <li><b>Intelligent Pipeline Architecture:</b> Flexible semantic document indexing, dense vector search, and context-aware synthesis.</li>
+          <li><b>Model Agnostic Integration:</b> Extensible abstractions for multi-provider LLM inference, embedding models, and custom retrieval filters.</li>
+          <li><b>Production Engineering:</b> Designed for modularity, low-latency querying, and enterprise-grade retrieval accuracy.</li>
         </ul>
       </td>
     </tr>
@@ -48,9 +62,10 @@
 </p>
 
 <p align="center">
-  <b>Backend & Infrastructure</b><br>
+  <b>Backend, AI & Infrastructure</b><br>
   <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" />
   <img src="https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" />
+  <img src="https://img.shields.io/badge/RAG_Pipelines-8B5CF6?style=for-the-badge" />
   <img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white" />
   <img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
   <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
@@ -62,7 +77,7 @@
   <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
   <img src="https://img.shields.io/badge/UI/UX_Design-8B5CF6?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Clean_Architecture-2E7D32?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/CBT_Behavioral_Systems-10B981?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Behavioral_Systems-10B981?style=for-the-badge" />
 </p>
 
 ---
@@ -83,7 +98,7 @@
 
 <p align="center">
   <a href="https://github.com/SHAZAAN25"><img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
-  <a href="mailto:contact@shazaan.dev"><img src="https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
+  <a href="mailto:mohammedshazaan85@gmail.com"><img src="https://img.shields.io/badge/Email-mohammedshazaan85%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" /></a>
 </p>
 
 <p align="center">
