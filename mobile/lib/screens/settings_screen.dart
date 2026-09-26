@@ -4,6 +4,7 @@ import '../providers/app_state.dart';
 import '../services/storage_service.dart';
 import '../theme/app_colors.dart';
 import '../theme/app_typography.dart';
+import '../widgets/primary_button.dart';
 import '../widgets/secondary_button.dart';
 import '../widgets/section_header.dart';
 import 'welcome_auth_screen.dart';
@@ -55,6 +56,146 @@ class SettingsScreen extends StatelessWidget {
             child: const Text('Close'),
           ),
         ],
+      ),
+    );
+  }
+
+  void _showPrivacyPolicyModal(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final bg = isDark ? AppColors.darkSurface : AppColors.lightSurface;
+    final textPrim = isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
+    final textSec = isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary;
+    final border = isDark ? AppColors.darkCardBorder : AppColors.lightCardBorder;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => Container(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(ctx).size.height * 0.85,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        decoration: BoxDecoration(
+          color: bg,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+          border: Border(top: BorderSide(color: border, width: 1.0)),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: border,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                'Privacy Policy',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: textPrim,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                '1. Zero Ad-Monopolies & Profiling\nClarity does not sell, license, or monetize your personal health data, cigarette logs, or craving history with advertisers or data brokers.\n\n'
+                '2. Local-First Storage Architecture\nAll daily smoking timestamps, situation tags, and delay logs are stored securely on your local device. Network communication occurs exclusively when user sync is configured.\n\n'
+                '3. Context Minimization for Coaching\nWhen AI coaching suggestions are generated, only anonymized aggregate counts (such as today\'s count and top trigger) are processed. Personal identifiers and full history are never exposed.\n\n'
+                '4. Data Portability & Complete Erasure\nYou retain 100% ownership of your data. You may download a full unencrypted JSON backup or erase all local records permanently with one tap.',
+                style: TextStyle(
+                  fontSize: 13,
+                  color: textSec,
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 20),
+              PrimaryButton(
+                label: 'Close',
+                onPressed: () => Navigator.of(ctx).pop(),
+                height: 44,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showTermsModal(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final bg = isDark ? AppColors.darkSurface : AppColors.lightSurface;
+    final textPrim = isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
+    final textSec = isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary;
+    final border = isDark ? AppColors.darkCardBorder : AppColors.lightCardBorder;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => Container(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(ctx).size.height * 0.85,
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+        decoration: BoxDecoration(
+          color: bg,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+          border: Border(top: BorderSide(color: border, width: 1.0)),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: border,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                'Terms & Conditions',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: textPrim,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Text(
+                '1. Behavioral Support Tool\nClarity is an evidence-informed behavioral reduction companion based on Cognitive Behavioral Therapy (CBT) and cue-extinction principles. It is not a certified medical device.\n\n'
+                '2. Medical Emergency Boundaries\nClarity does not provide clinical diagnoses, emergency psychiatric intervention, or pharmaceutical prescriptions. If you experience severe chest discomfort, acute shortness of breath, or distress, seek emergency medical care immediately.\n\n'
+                '3. User Responsibility & Tracking\nThe accuracy of adaptive target schedules depends on honest user tracking. Clarity is non-punitive and treats all smoking events as data for personal habit transformation.\n\n'
+                '4. Service Availability & Updates\nClarity is provided for personal health and habit self-regulation. Features and behavioral algorithms may be updated to reflect advancing clinical evidence.',
+                style: TextStyle(
+                  fontSize: 13,
+                  color: textSec,
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 20),
+              PrimaryButton(
+                label: 'Close',
+                onPressed: () => Navigator.of(ctx).pop(),
+                height: 44,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -372,10 +513,30 @@ class SettingsScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 14),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SecondaryButton(
+                            label: 'Privacy Policy',
+                            onPressed: () => _showPrivacyPolicyModal(context),
+                            height: 38,
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: SecondaryButton(
+                            label: 'Terms of Use',
+                            onPressed: () => _showTermsModal(context),
+                            height: 38,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
                     SecondaryButton(
                       label: 'Export Data (JSON)',
                       onPressed: () => _showExportDataDialog(context),
-                      height: 40,
+                      height: 38,
                     ),
                   ],
                 ),
