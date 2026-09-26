@@ -2,7 +2,7 @@
   <img src="mobile/assets/branding/clarity_logo.svg" width="96" height="96" alt="Clarity Logo" />
 </p>
 
-<h1 align="center">Clarity — Smoking Coach</h1>
+<h1 align="center">Clarity — Anti-Smoking Coach</h1>
 
 <p align="center">
   <strong>A quiet, private behavioral companion engineered on cognitive-behavioral cue extinction and deterministic health economics.</strong>
@@ -207,6 +207,6 @@ Distributed under the MIT License. See `LICENSE` for details.
 ---
 
 <p align="center">
-  <b>Clarity — Smoking Coach</b><br>
+  <b>Clarity — Anti-Smoking Coach</b><br>
   Designed & Managed with care by <b>Mohammed Shazaan Aarish</b>
 </p>

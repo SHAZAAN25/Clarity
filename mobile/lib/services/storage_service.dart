@@ -206,7 +206,7 @@ class StorageService {
   static Future<String> exportUserData() async {
     final data = await loadData();
     data['exportedAt'] = DateTime.now().toIso8601String();
-    data['app'] = 'Clarity — Smoking Coach';
+    data['app'] = 'Clarity — Anti-Smoking Coach';
     return const JsonEncoder.withIndent('  ').convert(data);
   }
 

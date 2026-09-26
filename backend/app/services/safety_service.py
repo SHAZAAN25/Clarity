@@ -52,7 +52,7 @@ class SafetyService:
                     response = (
                         "⚠️ **Important Health Notice**\n\n"
                         "You mentioned symptoms (such as chest pain or breathing difficulties) that could indicate an urgent medical situation. "
-                        "As an AI smoking coach, I cannot evaluate, diagnose, or manage acute medical symptoms.\n\n"
+                        "As an AI anti-smoking coach, I cannot evaluate, diagnose, or manage acute medical symptoms.\n\n"
                         "**Please seek immediate emergency medical care or call your local emergency medical service (such as 911, 999, 112, or 108) right away.**"
                     )
                     return True, "emergency", response
@@ -62,7 +62,7 @@ class SafetyService:
             if re.search(pattern, lower_text):
                 response = (
                     "ℹ️ **Medication & Dosing Guidance**\n\n"
-                    "I am an AI smoking reduction coach and cannot prescribe medications or calculate specific dosages for cessation aids "
+                    "I am an AI anti-smoking coach and cannot prescribe medications or calculate specific dosages for cessation aids "
                     "(such as Varenicline, Bupropion, or specific NRT nicotine patch/gum milligram levels).\n\n"
                     "The right dosage depends on your individual medical history, cardiovascular health, pregnancy status, and current smoking rate. "
                     "Please consult a physician, licensed pharmacist, or certified tobacco cessation specialist to select an appropriate, safe regimen for you."
