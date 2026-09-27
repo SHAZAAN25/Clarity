@@ -62,34 +62,9 @@ Built with Flutter 3.x for native Android execution:
 
 ## 🏛️ System Architecture
 
-```mermaid
-graph TD
-    subgraph Mobile Client [Flutter Android Native App]
-        UI[Touch-Optimized UI & Haptics]
-        SM[AppState Provider]
-        TE[Deterministic Target Engine]
-        SDE[Smart Delay Engine]
-        DB[(Local SQLite / SecureStorage)]
-        UI --> SM
-        SM --> TE
-        SM --> SDE
-        SM --> DB
-    end
-
-    subgraph Backend Service [FastAPI & Python 3.14]
-        API[FastAPI Gateway]
-        AUTH[JWT & Passlib Security]
-        RAG[RAG Health Library - WHO/CDC/NHS]
-        COACH[AI Behavioral Coach Adapter]
-        SQL[(PostgreSQL / SQLite)]
-        API --> AUTH
-        API --> RAG
-        API --> COACH
-        API --> SQL
-    end
-
-    SM -.->|Offline-Resilient Sync| API
-```
+<p align="center">
+  <img src="mobile/assets/branding/architecture.svg" width="100%" alt="Clarity System Architecture" />
+</p>
 
 ---
 
