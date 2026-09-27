@@ -1,191 +1,189 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 460" width="100%" height="100%">
   <defs>
-    <!-- Background Gradient -->
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0B131E"/>
-      <stop offset="100%" stop-color="#070C13"/>
-    </linearGradient>
-
-    <!-- Card Gradient for Mobile -->
-    <linearGradient id="mobileCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#13231E"/>
-      <stop offset="100%" stop-color="#0E1A17"/>
-    </linearGradient>
-
-    <!-- Card Gradient for Backend -->
-    <linearGradient id="backendCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#142132"/>
-      <stop offset="100%" stop-color="#0E1724"/>
-    </linearGradient>
-
-    <!-- Node Gradient (Sage) -->
-    <linearGradient id="nodeSage" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1C382E"/>
-      <stop offset="100%" stop-color="#132720"/>
-    </linearGradient>
-
-    <!-- Node Gradient (Blue/Teal) -->
-    <linearGradient id="nodeBlue" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#16304C"/>
-      <stop offset="100%" stop-color="#0F2034"/>
-    </linearGradient>
-
-    <!-- Connector Arrow Markers -->
-    <marker id="arrowSage" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 9 5 L 0 9 z" fill="#52B788"/>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif; font-weight: 600; font-size: 13px; fill: #E5E7EB; letter-spacing: 0.3px; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif; font-weight: 400; font-size: 11px; fill: #9CA3AF; }
+      .badge-text { font-family: 'SF Mono', Monaco, Menlo, Consolas, monospace; font-size: 10px; font-weight: 500; }
+      .node-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif; font-weight: 600; font-size: 12px; fill: #F3F4F6; }
+      .node-desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Roboto, sans-serif; font-weight: 400; font-size: 10px; fill: #9CA3AF; }
+      .flow-label { font-family: 'SF Mono', Monaco, Menlo, Consolas, monospace; font-size: 9.5px; fill: #6EE7B7; }
+    </style>
+    
+    <marker id="arrow-emerald" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 7 4 L 0 7 z" fill="#10B981"/>
     </marker>
-    <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 9 5 L 0 9 z" fill="#38BDF8"/>
+    <marker id="arrow-slate" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 7 4 L 0 7 z" fill="#64748B"/>
     </marker>
-    <marker id="arrowSync" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 9 5 L 0 9 z" fill="#74C69D"/>
+    <marker id="arrow-teal" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 7 4 L 0 7 z" fill="#14B8A6"/>
     </marker>
   </defs>
 
   <!-- Canvas Background -->
-  <rect width="880" height="500" rx="16" fill="url(#bgGrad)" stroke="#1E293B" stroke-width="1.5"/>
+  <rect width="920" height="460" rx="10" fill="#0A0E17" stroke="#1E293B" stroke-width="1"/>
 
-  <!-- ==================== LEFT SUBGRAPH: MOBILE CLIENT ==================== -->
-  <rect x="24" y="24" width="395" height="452" rx="14" fill="url(#mobileCardGrad)" stroke="#2D6A4F" stroke-width="1.5"/>
-  <rect x="24" y="24" width="395" height="42" rx="14" fill="#1C382E" stroke="#2D6A4F" stroke-width="1"/>
-  <rect x="24" y="52" width="395" height="14" fill="#1C382E"/>
-  <!-- Subgraph Header -->
-  <circle cx="46" cy="45" r="7" fill="#52B788"/>
-  <text x="62" y="49" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" fill="#E2E8F0" letter-spacing="0.3">MOBILE CLIENT</text>
-  <text x="180" y="49" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="500" fill="#74C69D">[Flutter Android Native App]</text>
+  <!-- ==================== LEFT PANEL: MOBILE APPLICATION ==================== -->
+  <g transform="translate(24, 24)">
+    <!-- Container Card -->
+    <rect width="416" height="412" rx="8" fill="#0F172A" stroke="#1E293B" stroke-width="1"/>
+    
+    <!-- Header -->
+    <rect width="416" height="40" rx="8" fill="#131D31"/>
+    <rect y="32" width="416" height="8" fill="#131D31"/>
+    <line x1="0" y1="40" x2="416" y2="40" stroke="#1E293B" stroke-width="1"/>
+    
+    <circle cx="20" cy="20" r="4" fill="#10B981"/>
+    <text x="32" y="24" class="title">MOBILE APP</text>
+    <text x="114" y="24" class="subtitle">Flutter 3.x / Android Native</text>
+    <rect x="330" y="10" width="72" height="20" rx="4" fill="#064E3B" stroke="#047857" stroke-width="0.8"/>
+    <text x="366" y="23" class="badge-text" fill="#6EE7B7" text-anchor="middle">OFFLINE-1ST</text>
 
-  <!-- Node 1: UI & Haptics -->
-  <g transform="translate(48, 82)">
-    <rect width="347" height="48" rx="8" fill="url(#nodeSage)" stroke="#2D6A4F" stroke-width="1.2"/>
-    <text x="173" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="600" fill="#F8FAFC" text-anchor="middle">Touch-Optimized UI &amp; Tactile Haptics</text>
-  </g>
+    <!-- Layer 1: Presentation & Touch Layer -->
+    <g transform="translate(16, 56)">
+      <rect width="384" height="64" rx="6" fill="#1E293B" stroke="#334155" stroke-width="0.8"/>
+      <text x="14" y="22" class="node-title">Touch Interface &amp; Micro-Interactions</text>
+      <text x="14" y="38" class="node-desc">• 2-Second Fast Log with Situational Tags</text>
+      <text x="14" y="52" class="node-desc">• 4-7-8 Breathing Orb Visualizer &amp; Tactile Haptic Feedback</text>
+      <rect x="300" y="12" width="70" height="18" rx="3" fill="#0F172A"/>
+      <text x="335" y="24" class="badge-text" fill="#94A3B8" text-anchor="middle">UI LAYER</text>
+    </g>
 
-  <!-- Arrow 1: UI -> AppState -->
-  <path d="M 221 130 L 221 154" stroke="#52B788" stroke-width="2" marker-end="url(#arrowSage)"/>
+    <!-- Arrow down to State -->
+    <path d="M 208 120 L 208 138" stroke="#10B981" stroke-width="1.2" marker-end="url(#arrow-emerald)"/>
 
-  <!-- Node 2: AppState Provider (Central Hub) -->
-  <g transform="translate(48, 158)">
-    <rect width="347" height="52" rx="8" fill="#1A4032" stroke="#52B788" stroke-width="1.5"/>
-    <text x="173" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#52B788" text-anchor="middle">AppState Reactive Store</text>
-    <text x="173" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="400" fill="#CBD5E1" text-anchor="middle">Central State Provider &amp; Event Bus</text>
-  </g>
+    <!-- Layer 2: Reactive State Hub -->
+    <g transform="translate(16, 142)">
+      <rect width="384" height="52" rx="6" fill="#132E27" stroke="#059669" stroke-width="1"/>
+      <text x="14" y="22" class="node-title" fill="#34D399">AppState Provider</text>
+      <text x="14" y="38" class="node-desc">Central Reactive Store • Diurnal 24h Clock State • Event Dispatcher</text>
+      <rect x="294" y="12" width="76" height="18" rx="3" fill="#064E3B"/>
+      <text x="332" y="24" class="badge-text" fill="#A7F3D0" text-anchor="middle">STATE BUS</text>
+    </g>
 
-  <!-- Branching Arrows from AppState to 3 engines -->
-  <path d="M 120 210 L 120 244" stroke="#52B788" stroke-width="2" marker-end="url(#arrowSage)"/>
-  <path d="M 221 210 L 221 244" stroke="#52B788" stroke-width="2" marker-end="url(#arrowSage)"/>
-  <path d="M 322 210 L 322 244" stroke="#52B788" stroke-width="2" marker-end="url(#arrowSage)"/>
+    <!-- Split Arrows to Engines -->
+    <path d="M 112 194 L 112 216" stroke="#10B981" stroke-width="1.2" marker-end="url(#arrow-emerald)"/>
+    <path d="M 304 194 L 304 216" stroke="#10B981" stroke-width="1.2" marker-end="url(#arrow-emerald)"/>
 
-  <!-- Node 3A: Target Engine -->
-  <g transform="translate(48, 248)">
-    <rect width="105" height="110" rx="8" fill="url(#nodeSage)" stroke="#2D6A4F" stroke-width="1.2"/>
-    <text x="52" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#74C69D" text-anchor="middle">Deterministic</text>
-    <text x="52" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#74C69D" text-anchor="middle">Target Engine</text>
-    <text x="52" y="65" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">7-Day Windows</text>
-    <text x="52" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">10% Reductions</text>
-    <text x="52" y="95" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">Stabilize Pauses</text>
-  </g>
+    <!-- Layer 3: Engines (Side by Side) -->
+    <!-- Engine A: Target Engine -->
+    <g transform="translate(16, 220)">
+      <rect width="186" height="96" rx="6" fill="#1E293B" stroke="#334155" stroke-width="0.8"/>
+      <text x="12" y="20" class="node-title">Target Engine</text>
+      <text x="12" y="38" class="node-desc">7-Day evaluation cycles</text>
+      <text x="12" y="54" class="node-desc">10% decrement algorithm</text>
+      <text x="12" y="70" class="node-desc">Stabilization pause mode</text>
+      <text x="12" y="86" class="node-desc">Floor = 1 cig / day</text>
+    </g>
 
-  <!-- Node 3B: Smart Delay Engine -->
-  <g transform="translate(169, 248)">
-    <rect width="105" height="110" rx="8" fill="url(#nodeSage)" stroke="#2D6A4F" stroke-width="1.2"/>
-    <text x="52" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#74C69D" text-anchor="middle">Smart Delay</text>
-    <text x="52" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#74C69D" text-anchor="middle">Engine</text>
-    <text x="52" y="65" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">Adaptive Windows</text>
-    <text x="52" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">4-7-8 Breathing</text>
-    <text x="52" y="95" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">Non-Punitive</text>
-  </g>
+    <!-- Engine B: Delay Engine -->
+    <g transform="translate(214, 220)">
+      <rect width="186" height="96" rx="6" fill="#1E293B" stroke="#334155" stroke-width="0.8"/>
+      <text x="12" y="20" class="node-title">Craving Intervention</text>
+      <text x="12" y="38" class="node-desc">Adaptive resistance timer</text>
+      <text x="12" y="54" class="node-desc">4-7-8 Breathing guidance</text>
+      <text x="12" y="70" class="node-desc">Action cues: Walk / Water</text>
+      <text x="12" y="86" class="node-desc">Non-punitive reflection</text>
+    </g>
 
-  <!-- Node 3C: Local SQLite Storage -->
-  <g transform="translate(290, 248)">
-    <rect width="105" height="110" rx="8" fill="url(#nodeSage)" stroke="#2D6A4F" stroke-width="1.2"/>
-    <text x="52" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#74C69D" text-anchor="middle">Local SQLite /</text>
-    <text x="52" y="40" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#74C69D" text-anchor="middle">SecureStorage</text>
-    <text x="52" y="65" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">On-Device Logs</text>
-    <text x="52" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">Encrypted Keys</text>
-    <text x="52" y="95" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">Zero Telemetry</text>
-  </g>
+    <!-- Arrow down to Local Storage -->
+    <path d="M 208 316 L 208 334" stroke="#10B981" stroke-width="1.2" marker-end="url(#arrow-emerald)"/>
 
-  <!-- Convergence to Mobile Footer Banner -->
-  <g transform="translate(48, 382)">
-    <rect width="347" height="38" rx="8" fill="#132B22" stroke="#2D6A4F" stroke-width="1"/>
-    <text x="173" y="23" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="500" fill="#A7F3D0" text-anchor="middle">Offline-First Operational Guarantee (100% On-Device)</text>
-  </g>
-
-
-  <!-- ==================== RIGHT SUBGRAPH: BACKEND SERVICE ==================== -->
-  <rect x="461" y="24" width="395" height="452" rx="14" fill="url(#backendCardGrad)" stroke="#0369A1" stroke-width="1.5"/>
-  <rect x="461" y="24" width="395" height="42" rx="14" fill="#0C253E" stroke="#0369A1" stroke-width="1"/>
-  <rect x="461" y="52" width="395" height="14" fill="#0C253E"/>
-  <!-- Subgraph Header -->
-  <circle cx="483" cy="45" r="7" fill="#38BDF8"/>
-  <text x="499" y="49" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="700" fill="#E2E8F0" letter-spacing="0.3">BACKEND SERVICE</text>
-  <text x="645" y="49" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="500" fill="#38BDF8">[FastAPI &amp; Python 3.14]</text>
-
-  <!-- Node B1: API Gateway -->
-  <g transform="translate(485, 82)">
-    <rect width="347" height="48" rx="8" fill="#0C2A47" stroke="#38BDF8" stroke-width="1.5"/>
-    <text x="173" y="28" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="700" fill="#38BDF8" text-anchor="middle">FastAPI Asynchronous Gateway</text>
-  </g>
-
-  <!-- Arrow B1: Gateway down to modules -->
-  <path d="M 658 130 L 658 154" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrowBlue)"/>
-
-  <!-- Row 2: Security & Coach -->
-  <g transform="translate(485, 158)">
-    <rect width="168" height="66" rx="8" fill="url(#nodeBlue)" stroke="#0284C7" stroke-width="1.2"/>
-    <text x="84" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="700" fill="#E0F2FE" text-anchor="middle">JWT &amp; Passlib</text>
-    <text x="84" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#7DD3FC" text-anchor="middle">Security &amp; Auth Tokens</text>
-  </g>
-
-  <g transform="translate(664, 158)">
-    <rect width="168" height="66" rx="8" fill="url(#nodeBlue)" stroke="#0284C7" stroke-width="1.2"/>
-    <text x="84" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="700" fill="#E0F2FE" text-anchor="middle">AI Coach Adapter</text>
-    <text x="84" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="10" fill="#7DD3FC" text-anchor="middle">Empathetic CBT Feedback</text>
-  </g>
-
-  <!-- Connectors to Row 3 -->
-  <path d="M 569 224 L 569 250" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrowBlue)"/>
-  <path d="M 748 224 L 748 250" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrowBlue)"/>
-
-  <!-- Row 3: RAG Health Library & Database -->
-  <g transform="translate(485, 254)">
-    <rect width="168" height="72" rx="8" fill="url(#nodeBlue)" stroke="#0284C7" stroke-width="1.2"/>
-    <text x="84" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="700" fill="#E0F2FE" text-anchor="middle">RAG Health Library</text>
-    <text x="84" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">Curated WHO / CDC / NHS</text>
-    <text x="84" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">Cosine Vector Retrieval</text>
-  </g>
-
-  <g transform="translate(664, 254)">
-    <rect width="168" height="72" rx="8" fill="url(#nodeBlue)" stroke="#0284C7" stroke-width="1.2"/>
-    <text x="84" y="26" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="700" fill="#E0F2FE" text-anchor="middle">SQL Relational DB</text>
-    <text x="84" y="44" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">PostgreSQL / SQLite</text>
-    <text x="84" y="58" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">Indexed User &amp; Event Logs</text>
-  </g>
-
-  <!-- Connectors to Services Layer -->
-  <path d="M 658 326 L 658 350" stroke="#38BDF8" stroke-width="2" marker-end="url(#arrowBlue)"/>
-
-  <!-- Backend Services Layer -->
-  <g transform="translate(485, 354)">
-    <rect width="347" height="66" rx="8" fill="#0C2237" stroke="#0284C7" stroke-width="1"/>
-    <text x="173" y="24" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#BAE6FD" text-anchor="middle">Modular Behavioral Micro-Services</text>
-    <text x="173" y="42" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">SafetyService • CoachService • AIService • AnalyticsService</text>
-    <text x="173" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9.5" fill="#94A3B8" text-anchor="middle">Clinical Boundary Guards • Emergency Triage Trigger</text>
+    <!-- Layer 4: Local Database -->
+    <g transform="translate(16, 338)">
+      <rect width="384" height="54" rx="6" fill="#111C2E" stroke="#1E3A5F" stroke-width="0.8"/>
+      <text x="14" y="22" class="node-title">On-Device Encrypted Storage (SQLite)</text>
+      <text x="14" y="38" class="node-desc">All logs, cues, and timestamps stored locally. Zero tracking or telemetry data sold.</text>
+      <rect x="290" y="12" width="80" height="18" rx="3" fill="#0C2540"/>
+      <text x="330" y="24" class="badge-text" fill="#60A5FA" text-anchor="middle">LOCAL-ONLY</text>
+    </g>
   </g>
 
 
-  <!-- ==================== CENTRAL SYNC BRIDGE ==================== -->
-  <!-- Horizontal connector line connecting AppState and FastAPI -->
-  <path d="M 395 184 L 485 106" stroke="#52B788" stroke-width="2" stroke-dasharray="6 4" fill="none" marker-end="url(#arrowSync)"/>
+  <!-- ==================== CENTRAL CONNECTOR BRIDGE ==================== -->
+  <g transform="translate(440, 160)">
+    <!-- Sync Pipe Lines -->
+    <line x1="0" y1="52" x2="40" y2="52" stroke="#10B981" stroke-width="1.5" stroke-dasharray="4 3"/>
+    
+    <rect x="-8" y="24" width="56" height="56" rx="28" fill="#13231E" stroke="#059669" stroke-width="1"/>
+    <text x="20" y="46" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="14" text-anchor="middle" fill="#34D399">⇄</text>
+    <text x="20" y="62" class="badge-text" fill="#6EE7B7" text-anchor="middle">SYNC</text>
 
-  <g transform="translate(378, 126)">
-    <rect width="124" height="34" rx="6" fill="#064E3B" stroke="#52B788" stroke-width="1.2"/>
-    <text x="62" y="15" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="700" fill="#6EE7B7" text-anchor="middle">OFFLINE-RESILIENT</text>
-    <text x="62" y="27" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="9" font-weight="600" fill="#A7F3D0" text-anchor="middle">Encrypted Sync ⇄</text>
+    <text x="20" y="98" class="flow-label" text-anchor="middle">TLS / HTTPS</text>
+    <text x="20" y="112" class="badge-text" fill="#94A3B8" text-anchor="middle">JWT Header</text>
   </g>
 
-  <!-- Static Status Indicator Footer -->
-  <g transform="translate(24, 466)">
-    <text x="416" y="22" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500" fill="#64748B" text-anchor="middle">Deterministic Client-Server Behavioral Architecture • Fully Decoupled &amp; Privacy-First</text>
+
+  <!-- ==================== RIGHT PANEL: BACKEND SERVICES ==================== -->
+  <g transform="translate(480, 24)">
+    <!-- Container Card -->
+    <rect width="416" height="412" rx="8" fill="#0F172A" stroke="#1E293B" stroke-width="1"/>
+    
+    <!-- Header -->
+    <rect width="416" height="40" rx="8" fill="#152136"/>
+    <rect y="32" width="416" height="8" fill="#152136"/>
+    <line x1="0" y1="40" x2="416" y2="40" stroke="#1E293B" stroke-width="1"/>
+    
+    <circle cx="20" cy="20" r="4" fill="#38BDF8"/>
+    <text x="32" y="24" class="title">BACKEND SERVICE</text>
+    <text x="142" y="24" class="subtitle">FastAPI / Python 3.14</text>
+    <rect x="328" y="10" width="74" height="20" rx="4" fill="#0C344E" stroke="#0284C7" stroke-width="0.8"/>
+    <text x="365" y="23" class="badge-text" fill="#38BDF8" text-anchor="middle">REST / JSON</text>
+
+    <!-- Layer 1: API Router Gateway -->
+    <g transform="translate(16, 56)">
+      <rect width="384" height="64" rx="6" fill="#1E293B" stroke="#334155" stroke-width="0.8"/>
+      <text x="14" y="22" class="node-title">FastAPI Application Gateway</text>
+      <text x="14" y="38" class="node-desc">• OAuth2 / JWT Authentication &amp; Password Hashing (Passlib)</text>
+      <text x="14" y="52" class="node-desc">• Rate-limited Async Endpoints (/api/v1/tracking, /coach, /analytics)</text>
+      <rect x="300" y="12" width="70" height="18" rx="3" fill="#0F172A"/>
+      <text x="335" y="24" class="badge-text" fill="#94A3B8" text-anchor="middle">ROUTER</text>
+    </g>
+
+    <!-- Arrow down to Domain Services -->
+    <path d="M 208 120 L 208 138" stroke="#38BDF8" stroke-width="1.2" marker-end="url(#arrow-slate)"/>
+
+    <!-- Layer 2: Behavioral Coaching & RAG Services -->
+    <g transform="translate(16, 142)">
+      <rect width="186" height="174" rx="6" fill="#1E293B" stroke="#334155" stroke-width="0.8"/>
+      <text x="12" y="22" class="node-title">Behavioral AI Coach</text>
+      <text x="12" y="38" class="node-desc">Empathetic CBT feedback</text>
+      <text x="12" y="52" class="node-desc">Identifies situational triggers</text>
+      <text x="12" y="66" class="node-desc">(Stress, Alcohol, Routine)</text>
+      <line x1="12" y1="80" x2="174" y2="80" stroke="#334155" stroke-width="0.6"/>
+      <text x="12" y="98" class="node-title">Safety Triage</text>
+      <text x="12" y="114" class="node-desc">Clinical boundary guards</text>
+      <text x="12" y="128" class="node-desc">Emergency referral rules</text>
+      <text x="12" y="142" class="node-desc">Zero medical prescription</text>
+      <rect x="12" y="150" width="80" height="16" rx="2" fill="#13271F"/>
+      <text x="52" y="162" class="badge-text" fill="#34D399" text-anchor="middle">CBT SYSTEM</text>
+    </g>
+
+    <g transform="translate(214, 142)">
+      <rect width="186" height="174" rx="6" fill="#1E293B" stroke="#334155" stroke-width="0.8"/>
+      <text x="12" y="22" class="node-title">Evidence-Based RAG</text>
+      <text x="12" y="38" class="node-desc">Curated public health</text>
+      <text x="12" y="52" class="node-desc">guidelines (WHO, CDC, NHS)</text>
+      <text x="12" y="66" class="node-desc">Cosine vector similarity</text>
+      <line x1="12" y1="80" x2="174" y2="80" stroke="#334155" stroke-width="0.6"/>
+      <text x="12" y="98" class="node-title">Analytics Engine</text>
+      <text x="12" y="114" class="node-desc">Hourly smoking frequency</text>
+      <text x="12" y="128" class="node-desc">Expenditure in ₹ INR</text>
+      <text x="12" y="142" class="node-desc">Craving resistance rate</text>
+      <rect x="12" y="150" width="70" height="16" rx="2" fill="#0C2540"/>
+      <text x="47" y="162" class="badge-text" fill="#38BDF8" text-anchor="middle">RAG SEARCH</text>
+    </g>
+
+    <!-- Arrow down to Database -->
+    <path d="M 208 316 L 208 334" stroke="#38BDF8" stroke-width="1.2" marker-end="url(#arrow-slate)"/>
+
+    <!-- Layer 3: Relational Persistence -->
+    <g transform="translate(16, 338)">
+      <rect width="384" height="54" rx="6" fill="#111C2E" stroke="#1E3A5F" stroke-width="0.8"/>
+      <text x="14" y="22" class="node-title">PostgreSQL / SQLite Database</text>
+      <text x="14" y="38" class="node-desc">SQLAlchemy ORM models: UserProfile, CigaretteLog, CravingEvent, TargetHistory.</text>
+      <rect x="290" y="12" width="80" height="18" rx="3" fill="#0C2540"/>
+      <text x="330" y="24" class="badge-text" fill="#60A5FA" text-anchor="middle">SQL ENGINE</text>
+    </g>
   </g>
 </svg>
