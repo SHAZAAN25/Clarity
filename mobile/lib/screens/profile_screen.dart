@@ -358,7 +358,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const SizedBox(height: 22),
 
-              // 3. Cigarette Economics (Section 35: Strictly INR ₹)
+              // 3. Cigarette Economics (INR ₹)
               SectionHeader(
                 title: 'Cigarette Economics',
                 subtitle: 'All financial calculations use Indian Rupees (₹)',
@@ -581,7 +581,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
               const SizedBox(height: 22),
 
-              // 6. Target History (Section 31: Immutable History)
+              // 6. Target History (Immutable History)
               if (appState.targetHistory.isNotEmpty) ...[
                 SectionHeader(title: 'Target History (Immutable Audit Log)'),
                 Container(

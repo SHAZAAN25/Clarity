@@ -32,7 +32,7 @@ class StorageService {
     try {
       final prefs = await SharedPreferences.getInstance();
 
-      // Check and execute schema migration if needed (Section 48 & 49)
+      // Check and execute schema migration if needed
       final savedVersion = prefs.getInt(_keySchemaVersion) ?? 1;
       if (savedVersion < currentSchemaVersion) {
         await _migrateData(prefs, fromVersion: savedVersion, toVersion: currentSchemaVersion);
@@ -95,7 +95,7 @@ class StorageService {
     return result;
   }
 
-  /// Safe, non-destructive migration handler (Section 48, 49, 50)
+  /// Safe, non-destructive migration handler
   static Future<void> _migrateData(
     SharedPreferences prefs, {
     required int fromVersion,
@@ -202,7 +202,7 @@ class StorageService {
     }
   }
 
-  /// Exports all personal data as structured JSON (Section 9: Privacy & Data Export)
+  /// Exports all personal data as structured JSON
   static Future<String> exportUserData() async {
     final data = await loadData();
     data['exportedAt'] = DateTime.now().toIso8601String();
@@ -210,7 +210,7 @@ class StorageService {
     return const JsonEncoder.withIndent('  ').convert(data);
   }
 
-  /// Clears all user data on account deletion (Section 9 & 42)
+  /// Clears all user data on account deletion
   static Future<void> clearAll() async {
     try {
       final prefs = await SharedPreferences.getInstance();

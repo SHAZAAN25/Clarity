@@ -176,7 +176,7 @@ export const HomeDashboard: React.FC<HomeDashboardProps> = ({
         </div>
       )}
 
-      {/* AI Coach Mini Prompt Card */}
+      {/* Coach Mini Card */}
       <div 
         className="glass-card" 
         onClick={onOpenCoach}

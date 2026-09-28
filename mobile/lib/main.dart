@@ -105,7 +105,7 @@ class _ClarityAppShellState extends State<ClarityAppShell> {
       );
     }
 
-    // Section 43: True horizontal swipe stack following user's finger
+    // Horizontal swipe stack following user's finger
     // Home ↔ Progress ↔ Coach ↔ Learn
     // Profile & Settings are accessed from top-level navigation, not trapped in the swipe stack.
     final overlayStyle = SystemUiOverlayStyle(

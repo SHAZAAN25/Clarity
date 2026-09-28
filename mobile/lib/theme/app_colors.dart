@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Semantic color tokens following the "Calm Premium Wellness" specification.
+/// Semantic color tokens for the Obsidian Sage palette.
 /// Avoids neon gradients, saturated health greens, and pure black.
 class AppColors {
   // Dark Palette - Deep charcoal, restrained borders, subtle surface separation

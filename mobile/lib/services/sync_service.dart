@@ -94,7 +94,7 @@ class SyncService {
   }
 
   /// Process pending local events queue.
-  /// Section 12 Invariants:
+  /// Sync Invariants:
   /// - Never duplicate events
   /// - Idempotent
   /// - Preserve timestamps and IDs

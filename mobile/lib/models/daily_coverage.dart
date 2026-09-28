@@ -5,11 +5,11 @@ class DailyCoverage {
   final DateTime? dayStartedAt;
   final DateTime? firstTrackedAt;
   final DateTime? lastTrackedAt;
-  final DateTime? trackingCompletedAt; // Explicit confirmation timestamp (Section 25)
+  final DateTime? trackingCompletedAt; // Explicit confirmation timestamp
   final int trackingSessionCount;
   final int eventCount;
   final bool dayClosed;
-  final bool confirmedZero; // Section 29: Explicitly confirmed smoke-free day
+  final bool confirmedZero; // Explicitly confirmed smoke-free day
   final CoverageStatus coverageStatus;
   final int actualCigarettes;
   final int targetCigarettes;

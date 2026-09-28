@@ -4,9 +4,9 @@ import 'baseline_history.dart';
 class UserProfile {
   final String id;
   final String email;
-  final String name; // Authoritative name field (Section 4)
-  final int questionnaireBaseline; // Section 13.1: Reported during onboarding (never overwritten)
-  final int? observedBaseline; // Section 13.1: Median of 7 valid completed days
+  final String name; // Authoritative name field
+  final int questionnaireBaseline; // Reported during onboarding (never overwritten)
+  final int? observedBaseline; // Median of 7 valid completed days
   final int cigarettesPerDay; // Effective baseline CPD
   final int targetCigarettesPerDay; // Authoritative active target CPD
   final int smokingDuration; // Years smoked
@@ -15,7 +15,7 @@ class UserProfile {
   final int averageInterval; // Typical minutes between cigarettes
   final double packPrice; // INR
   final int cigarettesPerPack; // Pack size
-  final String currency; // Always '₹' (Section 35)
+  final String currency; // Always '₹'
   final List<String> routines; // Daily smoking routines
   final List<String> triggers; // Smoking triggers
   final List<String> goals; // Primary cessation / reduction goals
@@ -47,7 +47,7 @@ class UserProfile {
     this.averageInterval = 60,
     this.packPrice = 200.0, // Default realistic INR pack price
     this.cigarettesPerPack = 20,
-    this.currency = '₹', // Section 35: Strictly INR
+    this.currency = '₹', // Strictly INR
     this.routines = const [],
     this.triggers = const [],
     this.goals = const [],

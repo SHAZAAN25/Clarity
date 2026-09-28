@@ -634,7 +634,7 @@ class _CravingInterventionScreenState extends State<CravingInterventionScreen>
     );
   }
 
-  // Step 4: Outcome (Section 17: "What happened?")
+  // Step 4: Outcome ("What happened?")
   Widget _buildOutcomeStep(Color textPrim, Color textSec, Color textMut, Color border) {
     final outcomes = [
       {'key': 'craving_passed', 'label': 'Craving passed completely'},

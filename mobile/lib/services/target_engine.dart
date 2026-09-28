@@ -24,7 +24,7 @@ class TargetEngineResult {
 }
 
 class TargetEngine {
-  /// Section 13.1: Calculate observed baseline from latest 7 valid full days (median)
+  /// Calculate observed baseline from latest 7 valid full days (median)
   /// Returns null if fewer than 7 valid days are available.
   static int? calculateObservedBaseline(List<DailyCoverage> validDays) {
     if (validDays.length < 7) return null;
@@ -35,7 +35,7 @@ class TargetEngine {
     return counts[3];
   }
 
-  /// Section 17: Initial Reduction Target
+  /// Initial Reduction Target
   /// initialTarget = ceil(effectiveBaseline * 0.90)
   /// Constraints: 1 <= initialTarget <= effectiveBaseline
   static int calculateInitialReductionTarget(int baseline) {
@@ -44,7 +44,7 @@ class TargetEngine {
     return target.clamp(1, baseline);
   }
 
-  /// Section 19: Quit-by-Date deterministic schedule
+  /// Quit-by-Date deterministic schedule
   /// Calculates linear decreasing daily ceiling from starting target down to 0 on targetQuitDate.
   static int calculateQuitByDateTarget({
     required int startingTarget,
@@ -72,7 +72,7 @@ class TargetEngine {
     return scheduled.clamp(0, startingTarget);
   }
 
-  /// Section 25 & 26 & 27 & 28: Weekly Target Evaluation
+  /// Weekly Target Evaluation
   /// 7-day cycle evaluation:
   /// - Requires at least 5 valid days. If < 5: HOLD TARGET.
   /// - If weeklyAverage <= currentTarget and validDayCount >= 5:
@@ -129,7 +129,7 @@ class TargetEngine {
       );
     }
 
-    // 2. Section 25: Insufficient valid days (< 5 days) -> HOLD TARGET
+    // 2. Insufficient valid days (< 5 days) -> HOLD TARGET
     if (validDayCount < 5) {
       final cycle = activeCycle.copyWith(
         validDayCount: validDayCount,
@@ -146,11 +146,11 @@ class TargetEngine {
       );
     }
 
-    // 3. Section 26: Successful cycle (weeklyAverage <= currentTarget and validDayCount >= 5)
+    // 3. Successful cycle (weeklyAverage <= currentTarget and validDayCount >= 5)
     final isSuccessful = weeklyAverage <= currentTarget;
 
     if (isSuccessful) {
-      // Floor at 1 for gradual reduction (Section 29)
+      // Floor at 1 for gradual reduction
       final calculatedNext = (currentTarget * 0.90).floor();
       final nextTarget = math.max(1, calculatedNext);
       final didChange = nextTarget != currentTarget;
@@ -190,7 +190,7 @@ class TargetEngine {
       );
     }
 
-    // 4. Section 27 & 28: Unsuccessful cycle (weeklyAverage > currentTarget)
+    // 4. Unsuccessful cycle (weeklyAverage > currentTarget)
     final failures = activeCycle.consecutiveFailures + 1;
     final entersStabilize = failures >= 2;
     final newMode = entersStabilize ? StrategyMode.stabilize : profile.strategyMode;
@@ -232,7 +232,7 @@ class TargetEngine {
     );
   }
 
-  /// Section 30: Manual Target Changes
+  /// Manual Target Changes
   /// Records immutable target history entry with source 'manual'
   static TargetHistoryEntry recordManualTargetChange({
     required String userId,

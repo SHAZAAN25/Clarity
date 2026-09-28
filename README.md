@@ -9,11 +9,11 @@
 </p>
 
 <p align="center">
-  <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-3.47+-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter" /></a>
-  <a href="https://dart.dev"><img src="https://img.shields.io/badge/Dart-3.13+-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart" /></a>
-  <a href="https://developer.android.com"><img src="https://img.shields.io/badge/Android-API%2036%20(Android%2016)-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android" /></a>
+  <a href="https://flutter.dev"><img src="https://img.shields.io/badge/Flutter-3.29+-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter" /></a>
+  <a href="https://dart.dev"><img src="https://img.shields.io/badge/Dart-3.7+-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart" /></a>
+  <a href="https://developer.android.com"><img src="https://img.shields.io/badge/Android-API%2034+-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android" /></a>
   <a href="https://fastapi.tiangolo.com"><img src="https://img.shields.io/badge/FastAPI-0.110+-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI" /></a>
-  <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.14+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" /></a>
+  <a href="https://python.org"><img src="https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python" /></a>
   <a href="#license"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License" /></a>
 </p>
 
@@ -110,9 +110,9 @@ Clarity/
 ## 🚀 Quickstart & Setup
 
 ### Prerequisites
-- Flutter SDK 3.29+ / 3.47+
+- Flutter SDK 3.29+
 - Android Studio / Android SDK (API 34+)
-- Python 3.11+ / 3.14+
+- Python 3.11+
 - Node.js 18+
 
 ### 1. Flutter Mobile App (Android)
@@ -155,11 +155,11 @@ npm run dev
 Comprehensive test suites are included across mobile, target calculation math, and backend API:
 
 ```bash
-# Mobile Engine & Acceptance Tests (18 passing tests)
+# Mobile Engine & Acceptance Tests
 cd mobile
 flutter test
 
-# Codebase static analysis (0 errors, 0 warnings)
+# Codebase static analysis
 flutter analyze
 
 # Backend API & Safety Tests

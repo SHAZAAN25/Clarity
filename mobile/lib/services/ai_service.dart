@@ -18,7 +18,7 @@ class SafetyEvaluation {
   static const safe = SafetyEvaluation(isSafe: true);
 }
 
-/// Abstract AI Safety Service (Section 28)
+/// Abstract Safety Service
 abstract class SafetyService {
   SafetyEvaluation evaluateInput(String userInput);
 }
@@ -55,7 +55,7 @@ class DefaultSafetyService implements SafetyService {
   }
 }
 
-/// Abstract RAG Service (Section 29)
+/// Abstract RAG Service
 abstract class RAGService {
   List<RAGHealthDoc> getVerifiedHealthDocs();
   List<RAGHealthDoc> searchDocs(String query);
@@ -136,7 +136,7 @@ class DefaultRAGService implements RAGService {
   }
 }
 
-/// Abstract AI Coach Service (Section 27 & 36)
+/// Abstract Coach Service
 abstract class CoachService {
   Future<String> generateContextualResponse({
     required String userMessage,
@@ -170,7 +170,7 @@ class ContextualCoachService implements CoachService {
           l.timestamp.day == today.day;
     }).length;
 
-    // 2. Contextual rule engine (No fake ChatGPT hallucinations)
+    // 2. Contextual rule engine
     if (lower.contains('delay') || lower.contains('wait') || lower.contains('craving')) {
       final delayMins = profile.currentDelayMinutes > 0 ? profile.currentDelayMinutes : 7;
       return "Cravings peak between 3 to 5 minutes, then steadily drop. We can practice a $delayMins-minute conscious delay right now. Let the wave crest without picking up a lighter.";
@@ -197,7 +197,7 @@ class ContextualCoachService implements CoachService {
   }
 }
 
-/// Main Unified AI Service Abstraction (Section 36)
+/// Main Unified Coach Service Abstraction
 class AIService {
   static final SafetyService safety = DefaultSafetyService();
   static final RAGService rag = DefaultRAGService();

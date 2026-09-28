@@ -94,7 +94,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     setState(() => _stepError = null);
     switch (step) {
       case 0:
-        return true; // Name is optional (Section 5)
+        return true; // Name is optional
       case 1:
         if (_cpd <= 0) {
           setState(() => _stepError = 'Please specify your typical cigarettes per day.');
@@ -165,7 +165,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   void _finishOnboarding() async {
-    // Validate all required steps before completion (Section 5)
+    // Validate all required steps before completion
     for (int s = 1; s <= 4; s++) {
       if (!_validateStep(s)) {
         setState(() => _currentStep = s);
@@ -271,7 +271,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(width: 44), // No Skip button (Section 5)
+                  const SizedBox(width: 44),
                 ],
               ),
             ),
@@ -719,7 +719,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   // Step 5: Motivation & Review
   Widget _buildStep5Review(bool isDark, Color textPrim, Color textSec, Color textMut, Color accent, Color border, Color cardBg) {
-    // Section 17: initialTarget = ceil(effectiveBaseline * 0.90)
+    // initialTarget = ceil(effectiveBaseline * 0.90)
     final initialTarget = _selectedStrategy == StrategyMode.quitNow
         ? 0
         : TargetEngine.calculateInitialReductionTarget(_cpd);

@@ -39,7 +39,7 @@ class _AICoachScreenState extends State<AICoachScreen> {
   @override
   void initState() {
     super.initState();
-    // Warm, specialized companion starter message (Section 39)
+    // Warm, specialized companion starter message
     _messages.add(
       _ChatMessageData(
         text:
@@ -90,7 +90,7 @@ class _AICoachScreenState extends State<AICoachScreen> {
     });
     _scrollToBottom();
 
-    // Section 40: Crisis & Safety Detection
+    // Crisis & Safety Detection
     final crisisResult = CrisisService.evaluateInput(text);
     if (crisisResult.isCrisis) {
       Future.delayed(const Duration(milliseconds: 300), () {

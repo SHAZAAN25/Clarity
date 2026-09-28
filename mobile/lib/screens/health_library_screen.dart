@@ -348,7 +348,7 @@ class HealthLibraryScreen extends StatelessWidget {
               }),
               const SizedBox(height: 24),
 
-              // Editorial Health Content (Section 28)
+              // Editorial Health Content
               SectionHeader(
                 title: 'Articles & Evidence',
                 subtitle: 'Peer-reviewed behavioral research',

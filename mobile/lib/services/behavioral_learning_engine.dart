@@ -21,7 +21,7 @@ class BehavioralLearningEngine {
   static const int minLogsForBasicPatterns = 4;
   static const int minLogsForDeepInsights = 7;
 
-  /// Detects real patterns strictly from logged data (Section 18 & 20).
+  /// Detects real patterns strictly from logged data.
   /// If data is insufficient, returns an empty list or "still learning" status.
   static List<PatternInsight> analyzePatterns({
     required List<SmokingLog> smokingLogs,
@@ -112,7 +112,7 @@ class BehavioralLearningEngine {
       }
     }
 
-    // 3. Delay & Intervention Success (Section 23: "What worked for you?")
+    // 3. Delay & Intervention Success ("What worked for you?")
     final completedCravings = cravingLogs.where((c) => c.delayedMinutesCompleted > 0 || c.wasOvercome).toList();
     if (completedCravings.length >= 3) {
       final successful = completedCravings.where((c) => c.wasOvercome).length;
@@ -135,7 +135,7 @@ class BehavioralLearningEngine {
     return insights;
   }
 
-  /// Calculates "What Worked For You" strategy rankings (Section 23)
+  /// Calculates strategy rankings based on past outcomes
   static List<StrategySuccessRate> getStrategySuccessRankings(List<CravingLog> cravingLogs) {
     final strategyMap = <String, List<bool>>{};
 

@@ -441,7 +441,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 22),
 
-              // 3. Currency (Section 35: Strictly INR)
+              // 3. Currency (Strictly INR)
               SectionHeader(title: 'Currency Standard'),
               Container(
                 width: double.infinity,
@@ -477,7 +477,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 22),
 
-              // 4. Privacy & Data Ownership (Section 9)
+              // 4. Privacy & Data Ownership
               SectionHeader(title: 'Privacy & Data Ownership'),
               Container(
                 width: double.infinity,
@@ -544,7 +544,7 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 22),
 
-              // 5. Medical Disclaimer (Section 41)
+              // 5. Medical Disclaimer
               SectionHeader(title: 'Medical Information & Safety'),
               Container(
                 width: double.infinity,

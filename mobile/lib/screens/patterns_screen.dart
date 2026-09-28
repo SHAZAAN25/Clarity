@@ -53,7 +53,7 @@ class PatternsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              // 1. Your Smoking Rhythm (Section 26)
+              // 1. Your Smoking Rhythm
               SectionHeader(
                 title: 'Your Smoking Rhythm',
                 subtitle: '24-hour distribution of cigarettes',
@@ -61,7 +61,7 @@ class PatternsScreen extends StatelessWidget {
               PatternTimeline(rhythmMap: rhythm),
               const SizedBox(height: 24),
 
-              // 2. High-Risk Times (Section 26)
+              // 2. High-Risk Times
               SectionHeader(
                 title: 'High-Risk Times',
                 subtitle: 'Windows with repeated urge clustering',
@@ -69,7 +69,7 @@ class PatternsScreen extends StatelessWidget {
               _buildHighRiskCard(appState, cardBg, border, textPrim, textSec, textMut, accent),
               const SizedBox(height: 24),
 
-              // 3. Common Triggers (Section 26)
+              // 3. Common Triggers
               SectionHeader(
                 title: 'Common Triggers',
                 subtitle: 'Environmental & emotional associations',
@@ -77,7 +77,7 @@ class PatternsScreen extends StatelessWidget {
               _buildTriggersCard(triggers, cardBg, border, textPrim, textSec, textMut, accent),
               const SizedBox(height: 24),
 
-              // 4. What Helps You (Section 23 & 26: Strategy Library)
+              // 4. What Helps You (Strategy Library)
               SectionHeader(
                 title: 'What Helps You',
                 subtitle: 'Delay & intervention effectiveness from your history',

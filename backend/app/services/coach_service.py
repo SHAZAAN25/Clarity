@@ -131,7 +131,7 @@ class CoachService:
                 suggested_quick_actions=["Consult a doctor", "Back to dashboard"]
             )
             
-        # 2. Build structured prompt
+        # 2. Build structured context
         user_context = cls.build_structured_context(db, user)
         
         system_prompt = (

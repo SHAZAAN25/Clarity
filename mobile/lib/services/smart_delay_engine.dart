@@ -2,7 +2,7 @@ import 'dart:math' as math;
 import '../models/craving_log.dart';
 import '../models/smoking_log.dart';
 
-/// Smart Adaptive Delay Engine (Section 16)
+/// Smart Adaptive Delay Engine
 /// Adapts delay suggestions progressively:
 /// - Uses previous delay success rate
 /// - Adapts to craving intensity (1-10)

@@ -8,7 +8,7 @@ import 'package:clarity_mobile/services/tracking_coverage_service.dart';
 import 'package:clarity_mobile/models/daily_coverage.dart';
 
 void main() {
-  group('Target Engine Test Cases (A through M - Section 54)', () {
+  group('Target Engine Test Cases (A through M)', () {
     late UserProfile baseProfile;
     late TargetCycle baseCycle;
 
@@ -282,7 +282,7 @@ void main() {
     });
   });
 
-  group('Acceptance Tests: Sample User Economics & INR (Section 56 & 57)', () {
+  group('Acceptance Tests: Sample User Economics & INR', () {
     test('Test User economics: ₹200 / 20 = ₹10/cig; 5 cigs = ₹50; strictly INR', () {
       final user = UserProfile(
         id: 'user_acceptance',
@@ -307,7 +307,7 @@ void main() {
       expect(user.currency, equals('₹'));
     });
 
-    test('Observed Baseline (Section 13.1): <7 days returns null, 7 days returns median', () {
+    test('Observed Baseline: <7 days returns null, 7 days returns median', () {
       final days6 = List.generate(6, (i) => DailyCoverage(
         dateString: '2026-09-0${i + 1}',
         actualCigarettes: 10 + i,
@@ -329,7 +329,7 @@ void main() {
       expect(observed, equals(11));
     });
 
-    test('Confirmed zero-cigarette day (Section 29) evaluates as valid smoke-free day', () {
+    test('Confirmed zero-cigarette day evaluates as valid smoke-free day', () {
       final coverage = TrackingCoverageService.evaluateDay(
         date: DateTime(2026, 9, 10),
         daySmokingLogs: [],

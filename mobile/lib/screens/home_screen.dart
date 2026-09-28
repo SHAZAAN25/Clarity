@@ -79,7 +79,7 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // 1. Top Header with Greeting, Steady Status, Profile and Settings buttons (Section 36 & 42)
+              // 1. Top Header with Greeting, Steady Status, Profile and Settings buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      // Steady badge (Section 33: Functional metric, not decorative)
+                      // Steady badge: functional metric, not decorative
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                         decoration: BoxDecoration(
@@ -136,7 +136,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 8),
-                      // Profile Button (Section 42: Separate from Settings)
+                      // Profile Button (separate from Settings)
                       IconButton(
                         tooltip: 'Profile',
                         icon: Icon(Icons.person_outline, size: 22, color: textSec),
@@ -417,7 +417,7 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(height: 20),
               ],
 
-              // 8. Day Completion Tracking (Section 25: Explicit Day Completion)
+              // 8. Day Completion Tracking (Explicit Day Completion)
               SectionHeader(
                 title: 'Day Tracking Status',
                 subtitle: 'Confirm completeness for target cycle evaluation',

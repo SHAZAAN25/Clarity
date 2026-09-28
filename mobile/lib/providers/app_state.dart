@@ -127,7 +127,7 @@ class AppState extends ChangeNotifier {
       }
       _authToken = data['authToken'] as String? ?? '';
     } else {
-      // Clean, un-onboarded initial state. No fake data! (Section 3 & 34)
+      // Clean, un-onboarded initial state.
       _smokingLogs = [];
       _cravingLogs = [];
       _targetHistory = [];
@@ -190,7 +190,7 @@ class AppState extends ChangeNotifier {
 
   int get todayRemainingCount => math.max(0, todayTargetCount - todaySmokedCount);
 
-  // Section 34: Return 0 or honest avoided count
+  // Return 0 or honest avoided count
   int get cigarettesAvoidedToday {
     if (_profile.cigarettesPerDay <= 0) return 0;
     return math.max(0, _profile.cigarettesPerDay - todaySmokedCount);
@@ -277,7 +277,7 @@ class AppState extends ChangeNotifier {
     return '${h}h ${m}m';
   }
 
-  // --- Money Stats (Section 35: Strictly INR) ---
+  // --- Money Stats (Strictly INR) ---
   MoneyStats get moneyStats {
     final now = DateTime.now();
     final sevenDaysAgo = now.subtract(const Duration(days: 7));
@@ -373,7 +373,7 @@ class AppState extends ChangeNotifier {
     return topKey;
   }
 
-  // Section 21 & 53: Weekly average across valid tracked days
+  // Weekly average across valid tracked days
   double? get weeklyAverageCpd {
     final validDays = _dailyCoverage
         .where((d) => d.coverageStatus == CoverageStatus.valid)
@@ -448,7 +448,7 @@ class AppState extends ChangeNotifier {
 
   // --- Actions ---
 
-  /// Section 13: Log cigarette event with full event model & offline resilience
+  /// Log cigarette event with full event model & offline resilience
   Future<void> logCigarette({
     String? trigger,
     String? routine,
@@ -597,7 +597,7 @@ class AppState extends ChangeNotifier {
     }
   }
 
-  /// Section 25: Explicit Day Completion ("Finish today's tracking")
+  /// Explicit Day Completion ("Finish today's tracking")
   Future<void> finishTodayTracking({bool confirmedZero = false}) async {
     final now = DateTime.now();
     final dateStr =
@@ -630,7 +630,7 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Recalculates consecutive steady days across completed valid past days (Section 33)
+  /// Recalculates consecutive steady days across completed valid past days
   void _recalculateSteadyStreak() {
     final now = DateTime.now();
     final todayStr =
@@ -674,7 +674,7 @@ class AppState extends ChangeNotifier {
     );
   }
 
-  /// Section 5 & 16 & 17: Complete mandatory onboarding with deterministic initial reduction target
+  /// Complete mandatory onboarding with deterministic initial reduction target
   Future<void> completeOnboarding({
     String? name,
     required int baselineCpd,
@@ -691,7 +691,7 @@ class AppState extends ChangeNotifier {
     StrategyMode strategyMode = StrategyMode.reduce,
     DateTime? targetQuitDate,
   }) async {
-    // Section 17: initialTarget = ceil(effectiveBaseline * 0.90)
+    // initialTarget = ceil(effectiveBaseline * 0.90)
     final initialTarget = strategyMode == StrategyMode.quitNow
         ? 0
         : TargetEngine.calculateInitialReductionTarget(baselineCpd);
@@ -737,7 +737,7 @@ class AppState extends ChangeNotifier {
       isAuthenticated: true,
       strategyMode: strategyMode,
       targetQuitDate: targetQuitDate,
-      steadyStreak: 0, // Starts at 0 until real valid days completed (Section 34)
+      steadyStreak: 0, // Starts at 0 until real valid days completed
     );
 
     _targetCycles = [firstCycle];
@@ -748,7 +748,7 @@ class AppState extends ChangeNotifier {
     await _persist();
   }
 
-  /// Section 30: Manual Target Changes
+  /// Manual Target Changes
   /// Records immutable target history entry
   Future<void> updateGoal({
     required int targetCpd,
@@ -811,7 +811,7 @@ class AppState extends ChangeNotifier {
     await _persist();
   }
 
-  /// Section 25, 26, 27, 28: Evaluates 7-day target cycle deterministically
+  /// Evaluates 7-day target cycle deterministically
   Future<TargetEngineResult> evaluateCycle() async {
     final currentCycle = activeCycle ??
         TargetEngine.createNewCycle(
@@ -962,7 +962,7 @@ class AppState extends ChangeNotifier {
     return res;
   }
 
-  /// Explicitly marks today's tracking as completed/closed (Section 21 & 23)
+  /// Explicitly marks today's tracking as completed/closed
   Future<void> closeDay() async {
     final now = DateTime.now();
     final dateStr =

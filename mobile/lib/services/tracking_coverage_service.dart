@@ -49,7 +49,7 @@ class TrackingCoverageService {
     CoverageStatus status;
 
     if (confirmedZero) {
-      // Section 29: Explicitly confirmed zero-cigarette day
+      // Explicitly confirmed zero-cigarette day
       status = CoverageStatus.valid;
     } else if (allTimestamps.isEmpty && sessionCount == 0 && !dayExplicitlyClosed) {
       // Untracked day
@@ -58,7 +58,7 @@ class TrackingCoverageService {
       // User explicitly closed/completed day
       status = CoverageStatus.valid;
     } else if (isFirstDayOfAccount && firstTracked != null && firstTracked.hour >= 18) {
-      // Section 22: New user starts at 8 PM -> PARTIAL day
+      // New user starts at 8 PM -> PARTIAL day
       status = CoverageStatus.partial;
     } else if (allTimestamps.isNotEmpty) {
       final spanHours = lastTracked!.difference(firstTracked!).inMinutes / 60.0;
@@ -100,7 +100,7 @@ class TrackingCoverageService {
   }
 
   /// Calculates consecutive Steady streak across completed past valid days.
-  /// Section 33:
+  /// Recalculates consecutive steady days across completed valid past days.
   /// - Only completed VALID days count.
   /// - If a completed valid day exceeds active target: streak resets.
   /// - Untracked/Unknown days do NOT increment streak and do not falsely count as 0.
